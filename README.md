@@ -65,6 +65,37 @@ The operational specification and proofs live in the following repositories:
 
 ---
 
+## Proof Family
+
+This repository references sealed and active proof artifacts that demonstrate
+specific, isolated execution-boundary claims.
+
+### Sealed Proofs
+
+**stop-first-operational-proof (SEALED)**
+
+Claim:
+Automation can complete tasks when allowed and stop immediately when required,
+without exercising judgment.
+
+Status:
+Sealed. Sufficient evidence established via two executed pilots (pilot_001, pilot_002).
+No further pilots will be added to avoid false signals of ongoing experimentation.
+
+### Active Proofs
+
+None (as of now)
+
+New execution-boundary claims are proven via new repositories,
+not by extending sealed proof artifacts.
+
+**Principles:**
+- One proof repository proves one operational claim.
+- Proof repositories do not evolve; they are sealed once sufficient evidence exists.
+- New conditions or claims require new proof repositories.
+
+---
+
 ## Scope
 
 This boundary is:
