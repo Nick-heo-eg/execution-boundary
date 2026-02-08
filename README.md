@@ -94,6 +94,8 @@ not by extending sealed proof artifacts.
 - Proof repositories do not evolve; they are sealed once sufficient evidence exists.
 - New conditions or claims require new proof repositories.
 
+All proof repositories **must** follow the naming rules defined in [PROOF_REPOSITORY_NAMING.md](docs/PROOF_REPOSITORY_NAMING.md).
+
 ---
 
 ## Scope
