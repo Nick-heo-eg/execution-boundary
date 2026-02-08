@@ -98,6 +98,8 @@ All proof repositories **must** follow the naming rules defined in [PROOF_REPOSI
 
 All proof repositories **must** include the Non-Claims section defined in [PROOF_NON_CLAIMS_TEMPLATE.md](docs/PROOF_NON_CLAIMS_TEMPLATE.md).
 
+All proof repositories **must** follow the standard README structure defined in [PROOF_README_SKELETON.md](docs/PROOF_README_SKELETON.md).
+
 ---
 
 ## Scope
