@@ -96,6 +96,8 @@ not by extending sealed proof artifacts.
 
 All proof repositories **must** follow the naming rules defined in [PROOF_REPOSITORY_NAMING.md](docs/PROOF_REPOSITORY_NAMING.md).
 
+All proof repositories **must** include the Non-Claims section defined in [PROOF_NON_CLAIMS_TEMPLATE.md](docs/PROOF_NON_CLAIMS_TEMPLATE.md).
+
 ---
 
 ## Scope
