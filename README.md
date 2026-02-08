@@ -57,7 +57,7 @@ The operational specification and proofs live in the following repositories:
 * **Judgment Boundary (Canonical, Sealed)**
   [https://github.com/Nick-heo-eg/judgment-boundary](https://github.com/Nick-heo-eg/judgment-boundary)
 
-* **Stop-First Operational Proofs**
+* **Stop-First Operational Proof (Sealed)**
   [https://github.com/Nick-heo-eg/stop-first-operational-proof](https://github.com/Nick-heo-eg/stop-first-operational-proof)
 
 * **Decision-Only Observability**
