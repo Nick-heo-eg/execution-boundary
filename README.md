@@ -55,58 +55,33 @@ If judgment does not occur, execution is never created.
 
 ---
 
-## Where the boundary is defined
+## Ecosystem Map
 
-The operational specification and proofs live in the following repositories:
+execution-boundary is the entry point. Specifications, observations, and proofs branch by role.
 
-* **AI Execution Boundary Specification**
-  [https://github.com/Nick-heo-eg/ai-execution-boundary-spec](https://github.com/Nick-heo-eg/ai-execution-boundary-spec)
+### Canonical Specifications
 
-* **Judgment Boundary (Canonical, Sealed)**
-  [https://github.com/Nick-heo-eg/judgment-boundary](https://github.com/Nick-heo-eg/judgment-boundary)
+- [ai-execution-boundary-spec](https://github.com/Nick-heo-eg/ai-execution-boundary-spec) — Defines execution authority boundary and pre-execution judgment structure
+- [execution-governance-spec](https://github.com/Nick-heo-eg/execution-governance-spec) — Documents execution governance concepts and decision taxonomy
+- [judgment-boundary](https://github.com/Nick-heo-eg/judgment-boundary) — Constitutional specification governing downstream repositories
+- [agent-judgment-spec](https://github.com/Nick-heo-eg/agent-judgment-spec) — Specifies judgment authority transfer for autonomous agents
 
-* **Stop-First Operational Proof (Sealed)**
-  [https://github.com/Nick-heo-eg/stop-first-operational-proof](https://github.com/Nick-heo-eg/stop-first-operational-proof)
+### Observation and Telemetry
 
-* **Decision-Only Observability**
-  [https://github.com/Nick-heo-eg/decision-only-observability](https://github.com/Nick-heo-eg/decision-only-observability)
+- [judgment-boundary-otel-spec](https://github.com/Nick-heo-eg/judgment-boundary-otel-spec) — OpenTelemetry-compatible observation patterns for decision boundaries
+- [spec](https://github.com/Nick-heo-eg/spec) — AI Judgment Trail (AJT) minimal log schema
+- [decision-only-observability](https://github.com/Nick-heo-eg/decision-only-observability) — Observation patterns for non-executed operations
 
----
+### Proof and Topology
 
-## Proof Family
+- [judgment-topology](https://github.com/Nick-heo-eg/judgment-topology) — Structural topology preventing undefined AI judgments from execution
+- [judgment-topology-poc](https://github.com/Nick-heo-eg/judgment-topology-poc) — Experimental demonstration of judgment topology separation
+- [stop-first-operational-proof](https://github.com/Nick-heo-eg/stop-first-operational-proof) — Sealed proof that automation can stop immediately when required
+- [genai-judgment-boundary](https://github.com/Nick-heo-eg/genai-judgment-boundary) — Boundary event recording adapter for GenAI systems
 
-This repository references sealed and active proof artifacts that demonstrate
-specific, isolated execution-boundary claims.
+### Benchmarks, Demos, and Edge Cases
 
-### Sealed Proofs
-
-**stop-first-operational-proof (SEALED)**
-
-Claim:
-Automation can complete tasks when allowed and stop immediately when required,
-without exercising judgment.
-
-Status:
-Sealed. Sufficient evidence established via two executed pilots (pilot_001, pilot_002).
-No further pilots will be added to avoid false signals of ongoing experimentation.
-
-### Active Proofs
-
-None (as of now)
-
-New execution-boundary claims are proven via new repositories,
-not by extending sealed proof artifacts.
-
-**Principles:**
-- One proof repository proves one operational claim.
-- Proof repositories do not evolve; they are sealed once sufficient evidence exists.
-- New conditions or claims require new proof repositories.
-
-All proof repositories **must** follow the naming rules defined in [PROOF_REPOSITORY_NAMING.md](docs/PROOF_REPOSITORY_NAMING.md).
-
-All proof repositories **must** include the Non-Claims section defined in [PROOF_NON_CLAIMS_TEMPLATE.md](docs/PROOF_NON_CLAIMS_TEMPLATE.md).
-
-All proof repositories **must** follow the standard README structure defined in [PROOF_README_SKELETON.md](docs/PROOF_README_SKELETON.md).
+The following repositories are reference artifacts and not entry paths: [llm-gating-bench](https://github.com/Nick-heo-eg/llm-gating-bench), [math-solver-benchmark](https://github.com/Nick-heo-eg/math-solver-benchmark), [stop-strategy-comparison](https://github.com/Nick-heo-eg/stop-strategy-comparison), [mail-sentinel](https://github.com/Nick-heo-eg/mail-sentinel), [ajt-grounded-extract](https://github.com/Nick-heo-eg/ajt-grounded-extract), [two-stage-judgment-pipeline](https://github.com/Nick-heo-eg/two-stage-judgment-pipeline), [judgment-refinement-public](https://github.com/Nick-heo-eg/judgment-refinement-public), [k-judgment-gate](https://github.com/Nick-heo-eg/k-judgment-gate).
 
 ---
 
@@ -134,3 +109,7 @@ It defines **when execution is not allowed to exist**.
 ### Status
 
 **ENTRY POINT — READ-ONLY BY DESIGN**
+
+---
+
+This repository is the entry point not the authority All execution responsibility remains outside this documentation
