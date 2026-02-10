@@ -113,4 +113,12 @@ It defines **when execution is not allowed to exist**.
 
 ---
 
+### Commit Policy
+
+Automated agents may propose changes, but commits must only occur after explicit human instruction.
+
+This commit set reflects a one-time consolidation of previously approved tasks.
+
+---
+
 This repository is the entry point not the authority All execution responsibility remains outside this documentation
