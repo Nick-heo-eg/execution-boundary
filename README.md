@@ -74,6 +74,7 @@ execution-boundary is the entry point. Specifications, observations, and proofs 
 
 ### Proof and Topology
 
+- [telegram-judgment-demo-proof](https://github.com/Nick-heo-eg/telegram-judgment-demo-proof) — Sealed proof: AI execution can be STOPPED/HELD before it happens (dual-track evidence: success + documented limitations)
 - [judgment-topology](https://github.com/Nick-heo-eg/judgment-topology) — Structural topology preventing undefined AI judgments from execution
 - [judgment-topology-poc](https://github.com/Nick-heo-eg/judgment-topology-poc) — Experimental demonstration of judgment topology separation
 - [stop-first-operational-proof](https://github.com/Nick-heo-eg/stop-first-operational-proof) — Sealed proof that automation can stop immediately when required
