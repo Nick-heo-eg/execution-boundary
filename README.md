@@ -86,6 +86,14 @@ The following repositories are reference artifacts and not entry paths: [llm-gat
 
 ---
 
+## Architectural Extension
+
+For structural extension of execution boundaries into Autonomous Execution (AX):
+
+- [Boundary-First Autonomous Execution](docs/boundary-first-autonomous-execution.md) — Architecture model for authority-constrained automation (containment-optimized vs detection-optimized)
+
+---
+
 ## Scope
 
 This boundary is:
