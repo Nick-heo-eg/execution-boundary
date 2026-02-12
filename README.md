@@ -1,132 +1,100 @@
-# execution-boundary
+# Execution Boundary
 
-## Important Notice
+Execution is not created without prior judgment.
 
-This repository defines concepts specifications or proofs related to execution or judgment boundaries This repository is not an implementation not a product and not an enforcement mechanism It provides no runtime guarantees compliance claims or safety certification It does not prevent misuse accidents or harm by itself All examples code and diagrams are illustrative and exist only to clarify ideas Any operational enforcement must be implemented outside the model and outside this repository
-
-Questions discussions and critical review are welcome via GitHub Issues This repository intentionally separates conceptual clarity from execution responsibility
-
----
-
-**Execution Boundary** defines a single invariant:
-
-> **Execution is not created without judgment.**
-
-This repository is a **public entry point**, not an implementation.
+This repository defines the structural invariant that execution must not exist unless a valid judgment has occurred.
+It serves as the conceptual entry point for execution-boundary research and related specifications.
 
 ---
 
-## What this is
+## Core Invariant
 
-Execution Boundary describes a structural condition under which execution is **impossible to exist**.
+Execution requires prior judgment as a hard precondition.
 
-It is not a workflow choice.
-It is not a safety heuristic.
-It is not human-in-the-loop.
+If judgment does not occur, execution must not be created.
 
-Judgment is treated as a **hard precondition**, not an advisory signal.
+This is a structural condition, not a workflow preference or advisory signal.
 
 ---
 
-## What this is not
+## What This Repository Provides
 
-This repository does **not** provide:
+- A definition of execution–judgment separation
+- A structural model for pre-execution authority
+- An entry map to related specifications, proofs, and experiments
 
-* a framework
-* a library
-* a runtime
-* a policy engine
-* a governance product
-
-It contains no enforcement code and no metrics.
+This repository does not contain runtime enforcement code.
 
 ---
 
-## Why this exists
+## Why This Exists
 
-Most AI governance mechanisms focus on:
+Many AI governance approaches focus on:
 
-* improving decisions, or
-* explaining outcomes after execution.
+- improving decision quality, or
+- explaining outcomes after execution.
 
-Execution Boundary governs **before execution exists**.
+Execution Boundary addresses a different layer:
 
-If judgment does not occur, execution is never created.
+Execution authority must be structurally dependent on prior judgment.
+
+The concern is not how well decisions are made,
+but whether execution is allowed to exist without them.
+
+---
+
+## Minimal Structural Model
+
+```
+Input
+→ Judgment
+→ (If valid) Execution
+→ (If absent or invalid) No Execution
+```
+
+Judgment is treated as a required precondition, not a post-hoc review.
 
 ---
 
 ## Ecosystem Map
 
-execution-boundary is the entry point. Specifications, observations, and proofs branch by role.
+This repository is the entry point.
 
-### Canonical Specifications
+Related specifications:
 
-- [ai-execution-boundary-spec](https://github.com/Nick-heo-eg/ai-execution-boundary-spec) — Defines execution authority boundary and pre-execution judgment structure
-- [execution-governance-spec](https://github.com/Nick-heo-eg/execution-governance-spec) — Documents execution governance concepts and decision taxonomy
-- [judgment-boundary](https://github.com/Nick-heo-eg/judgment-boundary) — Constitutional specification governing downstream repositories
-- [agent-judgment-spec](https://github.com/Nick-heo-eg/agent-judgment-spec) — Specifies judgment authority transfer for autonomous agents
+- `ai-execution-boundary-spec`
+- `execution-governance-spec`
+- `judgment-boundary`
+- `agent-judgment-spec`
 
-### Observation and Telemetry
+Observation & telemetry:
 
-- [judgment-boundary-otel-spec](https://github.com/Nick-heo-eg/judgment-boundary-otel-spec) — OpenTelemetry-compatible observation patterns for decision boundaries
-- [spec](https://github.com/Nick-heo-eg/spec) — AI Judgment Trail (AJT) minimal log schema
-- [decision-only-observability](https://github.com/Nick-heo-eg/decision-only-observability) — Observation patterns for non-executed operations
+- `judgment-boundary-otel-spec`
+- `decision-only-observability`
 
-### Proof and Topology
+Proof artifacts:
 
-- [telegram-judgment-demo-proof](https://github.com/Nick-heo-eg/telegram-judgment-demo-proof) — Sealed proof: AI execution can be STOPPED/HELD before it happens (dual-track evidence: success + documented limitations)
-- [judgment-topology](https://github.com/Nick-heo-eg/judgment-topology) — Structural topology preventing undefined AI judgments from execution
-- [judgment-topology-poc](https://github.com/Nick-heo-eg/judgment-topology-poc) — Experimental demonstration of judgment topology separation
-- [stop-first-operational-proof](https://github.com/Nick-heo-eg/stop-first-operational-proof) — Sealed proof that automation can stop immediately when required
-- [genai-judgment-boundary](https://github.com/Nick-heo-eg/genai-judgment-boundary) — Boundary event recording adapter for GenAI systems
+- `telegram-judgment-demo-proof`
+- `stop-first-operational-proof`
 
-### Benchmarks, Demos, and Edge Cases
-
-The following repositories are reference artifacts and not entry paths: [llm-gating-bench](https://github.com/Nick-heo-eg/llm-gating-bench), [math-solver-benchmark](https://github.com/Nick-heo-eg/math-solver-benchmark), [stop-strategy-comparison](https://github.com/Nick-heo-eg/stop-strategy-comparison), [mail-sentinel](https://github.com/Nick-heo-eg/mail-sentinel), [ajt-grounded-extract](https://github.com/Nick-heo-eg/ajt-grounded-extract), [two-stage-judgment-pipeline](https://github.com/Nick-heo-eg/two-stage-judgment-pipeline), [judgment-refinement-public](https://github.com/Nick-heo-eg/judgment-refinement-public), [k-judgment-gate](https://github.com/Nick-heo-eg/k-judgment-gate).
-
----
-
-## Architectural Extension
-
-For structural extension of execution boundaries into Autonomous Execution (AX):
-
-- [Boundary-First Autonomous Execution](docs/boundary-first-autonomous-execution.md) — Architecture model for authority-constrained automation (containment-optimized vs detection-optimized)
+Experimental topologies and benchmarks are listed in their respective repositories.
 
 ---
 
 ## Scope
 
-This boundary is:
+This boundary definition is:
 
-* model-agnostic
-* runtime-agnostic
-* policy-agnostic
-* regulation-agnostic
+- model-agnostic
+- runtime-agnostic
+- policy-agnostic
+- regulation-agnostic
 
-Compliance and oversight are **consequences**, not design goals.
-
----
-
-## Final note
-
-This repository does not aim to make AI "safer".
-
-It defines **when execution is not allowed to exist**.
+It defines a structural invariant, not a product or enforcement system.
 
 ---
 
-### Status
+## Status
 
-**ENTRY POINT — READ-ONLY BY DESIGN**
-
----
-
-### Commit Policy
-
-Automated agents may propose changes, but commits must only occur after explicit human instruction.
-
-This commit set reflects a one-time consolidation of previously approved tasks.
-
----
-
-This repository is the entry point not the authority All execution responsibility remains outside this documentation
+Entry point repository.
+Read-only by design.
