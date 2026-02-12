@@ -1,100 +1,115 @@
 # Execution Boundary
 
-Execution is not created without prior judgment.
+**Execution is not created without prior judgment.**
 
 This repository defines the structural invariant that execution must not exist unless a valid judgment has occurred.
-It serves as the conceptual entry point for execution-boundary research and related specifications.
+
+It serves as the conceptual entry point for execution-boundary research.
 
 ---
 
 ## Core Invariant
 
-Execution requires prior judgment as a hard precondition.
+Execution exists **iff** a prior explicit judgment allows it.
 
-If judgment does not occur, execution must not be created.
+```
+Execution = (Decision == ALLOW)
+```
 
-This is a structural condition, not a workflow preference or advisory signal.
-
----
-
-## What This Repository Provides
-
-- A definition of execution–judgment separation
-- A structural model for pre-execution authority
-- An entry map to related specifications, proofs, and experiments
-
-This repository does not contain runtime enforcement code.
-
----
-
-## Why This Exists
-
-Many AI governance approaches focus on:
-
-- improving decision quality, or
-- explaining outcomes after execution.
-
-Execution Boundary addresses a different layer:
-
-Execution authority must be structurally dependent on prior judgment.
-
-The concern is not how well decisions are made,
-but whether execution is allowed to exist without them.
+No implicit execution.
+No auto-propagation.
+No default-run.
 
 ---
 
 ## Minimal Structural Model
 
 ```
-Input
-→ Judgment
-→ (If valid) Execution
-→ (If absent or invalid) No Execution
+Proposal (AI)
+        ↓
+Judgment (Gate)
+        ↓
+Execution (System)
 ```
 
-Judgment is treated as a required precondition, not a post-hoc review.
+Not:
+
+```
+Proposal (AI) → Execution (System)
+```
+
+The boundary must be:
+
+* Structurally independent
+* Temporally prior
+* Explicitly recorded
 
 ---
 
-## Ecosystem Map
+## What This Repository Provides
 
-This repository is the entry point.
+* Conceptual invariant definition
+* Minimal role separation model
+* Vocabulary for execution governance
+* Entry point to structural specifications and proofs
 
-Related specifications:
+This repository does not contain runtime enforcement.
 
-- `ai-execution-boundary-spec`
-- `execution-governance-spec`
-- `judgment-boundary`
-- `agent-judgment-spec`
+---
 
-Observation & telemetry:
+## Why This Exists
 
-- `judgment-boundary-otel-spec`
-- `decision-only-observability`
+AI systems increasingly possess execution authority:
 
-Proof artifacts:
+* OS commands
+* File access
+* API calls
+* Payment operations
 
-- `telegram-judgment-demo-proof`
-- `stop-first-operational-proof`
+In many systems, proposal and execution are conflated.
 
-Experimental topologies and benchmarks are listed in their respective repositories.
+This repository defines their separation.
+
+---
+
+## Relationship to Other Work
+
+For structural specification and proof artifacts:
+
+* **AI Execution Boundary Specification**
+  [https://github.com/Nick-heo-eg/ai-execution-boundary-spec](https://github.com/Nick-heo-eg/ai-execution-boundary-spec)
+
+* **Telegram Judgment Demo (Independent Proof)**
+  [https://github.com/Nick-heo-eg/telegram-judgment-demo-proof](https://github.com/Nick-heo-eg/telegram-judgment-demo-proof)
+
+Other public repositories in this ecosystem explore observability, topology, and experimental patterns.
+This repository focuses only on the invariant.
 
 ---
 
 ## Scope
 
-This boundary definition is:
+This repository defines structural separation between judgment and execution.
 
-- model-agnostic
-- runtime-agnostic
-- policy-agnostic
-- regulation-agnostic
+It does not:
 
-It defines a structural invariant, not a product or enforcement system.
+* Automate judgment
+* Provide legal compliance
+* Guarantee safety outcomes
+* Replace operational controls
+
+It defines a boundary condition only.
 
 ---
 
 ## Status
 
-Entry point repository.
-Read-only by design.
+Conceptual Layer (Layer 0)
+Stable structural definition
+Version: 2026-02
+
+---
+
+## License
+
+MIT License
