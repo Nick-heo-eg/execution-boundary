@@ -1,115 +1,109 @@
 # Execution Boundary
 
-**Execution is not created without prior judgment.**
+Execution is not created without judgment.
 
-This repository defines the structural invariant that execution must not exist unless a valid judgment has occurred.
+This repository is the entry point to the Execution Boundary topology.
 
-It serves as the conceptual entry point for execution-boundary research.
-
----
-
-## Core Invariant
-
-Execution exists **iff** a prior explicit judgment allows it.
-
-```
-Execution = (Decision == ALLOW)
-```
-
-No implicit execution.
-No auto-propagation.
-No default-run.
+It organizes structural proof, specification, observability alignment, and demonstrations into a layered system.
 
 ---
 
-## Minimal Structural Model
+## What Is an Execution Boundary?
 
-```
-Proposal (AI)
-        ↓
-Judgment (Gate)
-        ↓
-Execution (System)
-```
+An execution boundary enforces that:
 
-Not:
+- Execution is not the default.
+- A decision must be issued before execution.
+- Authority is explicit.
+- Accountability is observable.
 
-```
-Proposal (AI) → Execution (System)
-```
+This is not an output filter.
+This is not a guardrail.
 
-The boundary must be:
-
-* Structurally independent
-* Temporally prior
-* Explicitly recorded
+This is structural enforcement before side effects occur.
 
 ---
 
-## What This Repository Provides
+## Topology Overview
 
-* Conceptual invariant definition
-* Minimal role separation model
-* Vocabulary for execution governance
-* Entry point to structural specifications and proofs
+The Execution Boundary project is intentionally separated into layers:
 
-This repository does not contain runtime enforcement.
+```
+┌──────────────────────────────────────────┐
+│  Structural Proof                        │
+│  → execution-proof-public                │
+├──────────────────────────────────────────┤
+│  Core Specifications                     │
+│  → ai-execution-boundary-spec            │
+│  → agent-judgment-spec                   │
+├──────────────────────────────────────────┤
+│  Observability & Telemetry Alignment     │
+│  → decision-only-observability           │
+│  → judgment-boundary-otel-spec           │
+├──────────────────────────────────────────┤
+│  Demonstrations                          │
+│  → telegram-judgment-demo-proof          │
+│  → execution-boundary-otel-1.39-demo     │
+└──────────────────────────────────────────┘
+```
+
+Each repository has a single responsibility.
 
 ---
 
-## Why This Exists
+## Start Here (Recommended Order)
 
-AI systems increasingly possess execution authority:
+1. **Structural Proof**
+   - https://github.com/Nick-heo-eg/execution-proof-public
+   Observable STOP enforcement (minimal reproducible demo)
 
-* OS commands
-* File access
-* API calls
-* Payment operations
+2. **Core Specification**
+   - https://github.com/Nick-heo-eg/ai-execution-boundary-spec
+   Formal execution authority specification
 
-In many systems, proposal and execution are conflated.
+3. **Observability**
+   - https://github.com/Nick-heo-eg/decision-only-observability
+   Recording non-executed decisions using existing telemetry systems
 
-This repository defines their separation.
+4. **Demonstration**
+   - https://github.com/Nick-heo-eg/telegram-judgment-demo-proof
+   Real-world STOP/HOLD demonstration
 
 ---
 
-## Relationship to Other Work
+## Why Multiple Repositories?
 
-For structural specification and proof artifacts:
+The separation is intentional.
 
-* **AI Execution Boundary Specification**
-  [https://github.com/Nick-heo-eg/ai-execution-boundary-spec](https://github.com/Nick-heo-eg/ai-execution-boundary-spec)
+Execution boundaries involve:
 
-* **Telegram Judgment Demo (Independent Proof)**
-  [https://github.com/Nick-heo-eg/telegram-judgment-demo-proof](https://github.com/Nick-heo-eg/telegram-judgment-demo-proof)
+- Judgment
+- Authority issuance
+- Execution
+- Accountability
 
-Other public repositories in this ecosystem explore observability, topology, and experimental patterns.
-This repository focuses only on the invariant.
+Each layer is isolated to prevent conceptual and structural collapse.
+
+The repository topology mirrors the execution topology.
 
 ---
 
 ## Scope
 
-This repository defines structural separation between judgment and execution.
+This project demonstrates structural authority enforcement.
 
-It does not:
+It does not provide:
 
-* Automate judgment
-* Provide legal compliance
-* Guarantee safety outcomes
-* Replace operational controls
+- Production-ready software
+- Safety guarantees
+- Policy completeness
+- Regulatory certification
 
-It defines a boundary condition only.
-
----
-
-## Status
-
-Conceptual Layer (Layer 0)
-Stable structural definition
-Version: 2026-02
+It demonstrates structure.
 
 ---
 
-## License
+## Core Principle
 
-MIT License
+We do not rely on intent.
+We rely on structure.
