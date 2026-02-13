@@ -110,9 +110,8 @@ We rely on structure.
 
 ---
 
-*Last auto-generated: 2026-02-13 23:22:26 UTC*
+*Last auto-generated: 2026-02-13 23:05:20 UTC*
 *Source: TOPOLOGY_REGISTRY.yaml v2.0*
-*Registry Hash: 554cb8ba*
 
 
 <!-- Direct push test -->
