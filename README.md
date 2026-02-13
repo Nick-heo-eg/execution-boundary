@@ -1,5 +1,7 @@
 # Execution Boundary
 
+<!-- AUTO-GENERATED FROM TOPOLOGY_REGISTRY.yaml - DO NOT EDIT MANUALLY -->
+
 Execution is not created without judgment.
 
 This repository is the entry point to the Execution Boundary topology.
@@ -31,19 +33,17 @@ The Execution Boundary project is intentionally separated into layers:
 ```
 ┌──────────────────────────────────────────┐
 │  Structural Proof                        │
-│  → execution-proof-public                │
+│  → execution-proof-public                 │
+│  → telegram-judgment-demo-proof           │
 ├──────────────────────────────────────────┤
 │  Core Specifications                     │
-│  → ai-execution-boundary-spec            │
-│  → agent-judgment-spec                   │
+│  → ai-execution-boundary-spec             │
+│  → spec                                   │
 ├──────────────────────────────────────────┤
 │  Observability & Telemetry Alignment     │
-│  → decision-only-observability           │
-│  → judgment-boundary-otel-spec           │
-├──────────────────────────────────────────┤
-│  Demonstrations                          │
-│  → telegram-judgment-demo-proof          │
-│  → execution-boundary-otel-1.39-demo     │
+│  → decision-only-observability            │
+│  → judgment-boundary-otel-spec            │
+│  → execution-boundary-otel-1.39-demo      │
 └──────────────────────────────────────────┘
 ```
 
@@ -54,20 +54,20 @@ Each repository has a single responsibility.
 ## Start Here (Recommended Order)
 
 1. **Structural Proof**
-   - https://github.com/Nick-heo-eg/execution-proof-public
-   Observable STOP enforcement (minimal reproducible demo)
+   - https://github.com/Nick-heo-eg/execution-proof-public 🆕
+   Latest sealed structural STOP proof
 
-2. **Core Specification**
+2. **Structural Proof**
+   - https://github.com/Nick-heo-eg/telegram-judgment-demo-proof
+   Real-world STOP/HOLD demonstration
+
+3. **Core Specification**
    - https://github.com/Nick-heo-eg/ai-execution-boundary-spec
    Formal execution authority specification
 
-3. **Observability**
+4. **Observability**
    - https://github.com/Nick-heo-eg/decision-only-observability
-   Recording non-executed decisions using existing telemetry systems
-
-4. **Demonstration**
-   - https://github.com/Nick-heo-eg/telegram-judgment-demo-proof
-   Real-world STOP/HOLD demonstration
+   Decision recording using existing telemetry
 
 ---
 
@@ -107,3 +107,9 @@ It demonstrates structure.
 
 We do not rely on intent.
 We rely on structure.
+
+---
+
+*Last auto-generated: 2026-02-13 23:05:20 UTC*
+*Source: TOPOLOGY_REGISTRY.yaml v2.0*
+
