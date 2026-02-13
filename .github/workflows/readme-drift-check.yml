@@ -1,0 +1,50 @@
+name: README Drift Check
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  drift-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Verify AUTO-GENERATED marker
+        run: |
+          if ! grep -q "AUTO-GENERATED FROM TOPOLOGY_REGISTRY.yaml" README.md; then
+            echo "❌ ERROR: AUTO-GENERATED marker missing from README.md"
+            echo ""
+            echo "This README must be auto-generated from echo-core-private TOPOLOGY_REGISTRY.yaml"
+            echo "Manual editing is prohibited."
+            echo ""
+            echo "To update README:"
+            echo "  1. Modify TOPOLOGY_REGISTRY.yaml in echo-core-private"
+            echo "  2. Run: python judgment-integrity-engine/generate_public_landing.py > ../execution-boundary/README.md"
+            echo "  3. Commit and push both repositories"
+            exit 1
+          fi
+          echo "✅ AUTO-GENERATED marker found"
+
+      - name: Verify no manual edits
+        run: |
+          # Check if README.md contains modification markers
+          if grep -q "Last auto-generated:" README.md; then
+            echo "✅ Auto-generation timestamp found"
+          else
+            echo "❌ ERROR: Auto-generation timestamp missing"
+            echo "README may have been manually edited"
+            exit 1
+          fi
+
+      - name: Block merge on failure
+        if: failure()
+        run: |
+          echo "❌ README drift check failed - merge blocked"
+          echo ""
+          echo "README must be auto-generated from canonical registry"
+          echo "Do not edit README.md manually"
+          exit 1
