@@ -10,6 +10,27 @@ It organizes structural proof, specification, observability alignment, and demon
 
 ---
 
+## Quick Verify
+
+Verify freeze integrity using public information only (no private repository access required):
+
+```bash
+bash VERIFY_FREEZE.sh
+```
+
+**What it checks:**
+- Registry hash format validation
+- README footer hash extraction and verification
+- Cross-document hash synchronization (FREEZE_STATUS.md ↔ README.md)
+- Trust model hierarchy documentation
+- Protocol compatibility lineage
+
+**Output:** `PASS` or `FAIL` with detailed logs in `artifacts/public-verify-logs/`
+
+**Trust model:** This verification depends on structure, not intent. See `ENGINE_TRUST_MODEL.md` for the complete trust hierarchy.
+
+---
+
 ## What Is an Execution Boundary?
 
 An execution boundary enforces that:
@@ -110,7 +131,28 @@ We rely on structure.
 
 ---
 
-*Last auto-generated: 2026-02-14 01:29:06 UTC*
+## Trust Boundary
+
+**Canonical Authority:** `echo-core-private` (private repository - source of truth)
+
+**Public Verification:** This repository (defensive layer - community accessible)
+
+Public verification (`VERIFY_FREEZE.sh`) detects desynchronization between public documents.
+
+It does NOT provide authoritative validation (requires private repository access).
+
+**For complete trust model:** See [`TRUST_BOUNDARY.md`](TRUST_BOUNDARY.md)
+
+**Key concepts:**
+- Authority Source Definition
+- Public Verification Role
+- Engine Integrity Root
+- Verification Escalation Path (3 levels)
+- Threat Model Summary
+
+---
+
+*Last auto-generated: 2026-02-14 02:28:01 UTC*
 *Source: TOPOLOGY_REGISTRY.yaml v2.0*
-*Registry Hash: 4532452d*
+*Registry Hash: a4750fb4*
 
