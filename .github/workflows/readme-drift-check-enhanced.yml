@@ -1,0 +1,88 @@
+name: README Drift Check (Enhanced)
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  drift-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Verify AUTO-GENERATED marker
+        id: marker-check
+        run: |
+          echo "::group::Checking AUTO-GENERATED marker"
+          if ! grep -q "AUTO-GENERATED FROM TOPOLOGY_REGISTRY.yaml" README.md; then
+            echo "❌ ERROR: AUTO-GENERATED marker missing from README.md"
+            echo ""
+            echo "This README must be auto-generated from echo-core-private TOPOLOGY_REGISTRY.yaml"
+            echo "Manual editing is prohibited."
+            echo ""
+            echo "To update README:"
+            echo "  1. Modify TOPOLOGY_REGISTRY.yaml in echo-core-private"
+            echo "  2. Run: python judgment-integrity-engine/generate_public_landing.py > ../execution-boundary/README.md"
+            echo "  3. Commit and push both repositories"
+            echo "::endgroup::"
+            exit 1
+          fi
+          echo "✅ AUTO-GENERATED marker found"
+          echo "::endgroup::"
+
+      - name: Verify registry hash footer presence
+        id: footer-presence-check
+        run: |
+          echo "::group::Checking registry hash footer"
+          if grep -q "Last auto-generated:" README.md && grep -q "Registry Hash:" README.md; then
+            echo "✅ Auto-generation footer found"
+          else
+            echo "❌ ERROR: Auto-generation footer missing or incomplete"
+            echo "README may have been manually edited"
+            echo "::endgroup::"
+            exit 1
+          fi
+          echo "::endgroup::"
+
+      - name: Extract and validate registry hash
+        id: hash-validation
+        run: |
+          echo "::group::Validating registry hash"
+
+          # Extract hash from README
+          README_HASH=$(grep "Registry Hash:" README.md | sed 's/.*Registry Hash: \([a-f0-9]*\).*/\1/')
+          echo "README contains hash: ${README_HASH}"
+
+          if [ -z "${README_HASH}" ]; then
+            echo "❌ ERROR: Could not extract registry hash from README"
+            echo "::endgroup::"
+            exit 1
+          fi
+
+          # Validate hash format (should be 8 hex characters for short hash)
+          if ! [[ "${README_HASH}" =~ ^[a-f0-9]{8}$ ]]; then
+            echo "❌ ERROR: Invalid hash format in README"
+            echo "Expected: 8 hexadecimal characters"
+            echo "Found: ${README_HASH}"
+            echo "::endgroup::"
+            exit 1
+          fi
+
+          echo "✅ Registry hash format valid: ${README_HASH}"
+          echo "::endgroup::"
+
+          # Note: Full hash comparison requires access to canonical registry
+          # This workflow validates format and presence only
+          # Cross-repository hash verification is performed in echo-core-private CI
+
+      - name: Block merge on failure
+        if: failure()
+        run: |
+          echo "❌ README drift check failed - merge blocked"
+          echo ""
+          echo "README must be auto-generated from canonical registry"
+          echo "Do not edit README.md manually"
+          exit 1
