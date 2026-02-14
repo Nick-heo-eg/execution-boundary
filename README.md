@@ -113,3 +113,7 @@ We rely on structure.
 *Last auto-generated: 2026-02-14 00:10:20 UTC*
 *Source: TOPOLOGY_REGISTRY.yaml v2.0*
 *Registry Hash: 26bec01c*
+
+---
+
+**Topology Lock:** `TOPOLOGY_V1_FREEZE` / `LANDING_V1_LOCK`
