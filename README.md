@@ -1,8 +1,11 @@
 # Execution Authority Runtime - RC2 Strict Aligned
 
+> **BASELINE SEALED:** RC2_STRICT_ALIGNED is the current stable baseline. All future releases reference this as the structural foundation for mediation-layer pre-execution enforcement.
+
 [![Release](https://img.shields.io/github/v/release/Nick-heo-eg/execution-boundary?label=RC2_STRICT_ALIGNED)](https://github.com/Nick-heo-eg/execution-boundary/releases/tag/RC2_STRICT_ALIGNED)
 [![Policy Alignment](https://img.shields.io/badge/Policy%20Alignment-100%25-brightgreen)](https://github.com/Nick-heo-eg/execution-boundary/tree/main/artifacts/release_candidates/RC2_STRICT_ALIGNED)
 [![Pre-Runtime Blocking](https://img.shields.io/badge/Pre--Runtime%20Blocking-7%2F7%20STOP-red)](https://github.com/Nick-heo-eg/execution-boundary/releases/tag/RC2_STRICT_ALIGNED)
+[![Baseline](https://img.shields.io/badge/Baseline-RC2__STRICT__ALIGNED-blue)](https://github.com/Nick-heo-eg/execution-boundary/tree/main)
 
 ## Latest Stable Release
 
