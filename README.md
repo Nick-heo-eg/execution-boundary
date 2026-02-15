@@ -1,5 +1,7 @@
 # Execution Authority Runtime - RC2 Strict Aligned
 
+> **Public Entry Specification Repository** — Runtime and internal orchestration files removed.
+
 > **BASELINE SEALED:** RC2_STRICT_ALIGNED is the current stable baseline. All future releases reference this as the structural foundation for mediation-layer pre-execution enforcement.
 
 [![Release](https://img.shields.io/github/v/release/Nick-heo-eg/execution-boundary?label=RC2_STRICT_ALIGNED)](https://github.com/Nick-heo-eg/execution-boundary/releases/tag/RC2_STRICT_ALIGNED)
