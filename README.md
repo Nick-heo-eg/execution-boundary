@@ -2,7 +2,7 @@
 
 > **Public Entry Specification Repository** — Runtime and internal orchestration files removed.
 
-> **Runtime implementation moved to:** [execution-runtime-lab](https://github.com/Nick-heo-eg/execution-runtime-lab)
+> **Runtime implementation moved to:** [execution-runtime-lab](https://github.com/Nick-heo-eg/execution-runtime-lab) — [v0.1.0-runtime-lab](https://github.com/Nick-heo-eg/execution-runtime-lab/releases/tag/v0.1.0-runtime-lab)
 
 > **BASELINE SEALED:** RC2_STRICT_ALIGNED is the current stable baseline. All future releases reference this as the structural foundation for mediation-layer pre-execution enforcement.
 
@@ -10,6 +10,7 @@
 [![Policy Alignment](https://img.shields.io/badge/Policy%20Alignment-100%25-brightgreen)](https://github.com/Nick-heo-eg/execution-boundary/tree/main/artifacts/release_candidates/RC2_STRICT_ALIGNED)
 [![Pre-Runtime Blocking](https://img.shields.io/badge/Pre--Runtime%20Blocking-7%2F7%20STOP-red)](https://github.com/Nick-heo-eg/execution-boundary/releases/tag/RC2_STRICT_ALIGNED)
 [![Baseline](https://img.shields.io/badge/Baseline-RC2__STRICT__ALIGNED-blue)](https://github.com/Nick-heo-eg/execution-boundary/tree/main)
+[![Runtime Lab - CI Verified](https://github.com/Nick-heo-eg/execution-runtime-lab/actions/workflows/adversarial-proof.yml/badge.svg)](https://github.com/Nick-heo-eg/execution-runtime-lab/actions/workflows/adversarial-proof.yml)
 
 ## Latest Stable Release
 
