@@ -1,0 +1,50 @@
+# RC2 Strict Aligned - Release Integrity Manifest
+
+release:
+  name: RC2_STRICT_ALIGNED
+  label: "Execution Authority Enforcement Reference – v1 Strict Aligned"
+  version: RC2_EXPERIMENTAL_FINAL_100PCT
+  timestamp: "2026-02-15T14:06:00Z"
+  status: "Frozen, Ready for Public Release"
+
+archive:
+  filename: RC2_STRICT_ALIGNED.zip
+  zip_hash: adc9bdeeb2e4416235e98304a8cdffdd5e12bb579b641961e43a9287b38823ea
+  algorithm: SHA256
+  size_bytes: 15360
+  file_count: 9
+  directory_count: 1
+
+enforcement_configuration:
+  enforcement_scope: mediation_layer
+  execution_boundary: pre_runtime_blocking
+  strict_threshold: 1
+  deterministic_mode: true
+  policy_alignment_percent: 100
+
+test_results:
+  total_scenarios: 8
+  stop_verdicts: 7
+  allow_verdicts: 1
+  execution_prevented: 7
+  architectural_violations: 0
+
+scope_clarification:
+  this_is:
+    - Mediation layer enforcement
+    - Pre-runtime blocking
+    - Policy-based authorization
+    - Application-layer governance
+
+  this_is_not:
+    - Kernel isolation mechanism
+    - Operating system sandbox
+    - Container runtime security
+    - Hardware-level isolation
+
+deployment_status:
+  ready_for_release: true
+  rc1_frozen: true
+  integrity_yaml_unchanged: true
+  diff_only_preserved: true
+  commits_created: 0

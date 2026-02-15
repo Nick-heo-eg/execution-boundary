@@ -1,0 +1,39 @@
+On branch rc2_experimental
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   README.md
+	modified:   package.json
+	modified:   pnpm-lock.yaml
+	modified:   src/index.ts
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	EAR_DEMO_STAGE_01_TUI_SKELETON.zip
+	EAR_EXECUTION_AUTHORITY_OPENCLAW_ENFORCED_v1.integrity.yaml
+	EAR_EXECUTION_AUTHORITY_OPENCLAW_ENFORCED_v1.zip
+	EAR_EXECUTION_AUTHORITY_RUNTIME_FINAL.integrity.yaml
+	EAR_EXECUTION_AUTHORITY_RUNTIME_FINAL.zip
+	EAR_OPENCLAW_INTEGRATION/
+	EAR_PATCH.diff
+	EAR_STAGE_03_RUNTIME.zip
+	OPENCLAW_EAR_INTEGRATION_FINAL_README.md
+	adapters/
+	agents/
+	artifacts/
+	config/
+	extensions/judgment-gate
+	proof/
+	proof_extended/
+	setup-api-key.sh
+	src/process/ear-global-override.ts
+	src/process/exec-ear-adapter-enforced.ts
+	src/process/exec-ear-adapter.ts
+	test-docker-run.ts
+	test-ear-concurrency.ts
+	test-ear-enforced.ts
+	test-node-e.ts
+	test-openclaw-integration.ts
+	~/
+
+no changes added to commit (use "git add" and/or "git commit -a")

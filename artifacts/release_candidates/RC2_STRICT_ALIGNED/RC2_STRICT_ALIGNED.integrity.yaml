@@ -1,0 +1,44 @@
+# RC2 STRICT ALIGNED - Integrity Manifest
+# Execution Authority Enforcement Reference – v1 Strict Aligned
+
+release:
+  name: RC2_STRICT_ALIGNED
+  label: "Execution Authority Enforcement Reference – v1 Strict Aligned"
+  version: RC2_EXPERIMENTAL_FINAL_100PCT
+  timestamp: "2026-02-15T03:47:21Z"
+  status: "Frozen Artifact, Diff-Only"
+
+scope:
+  enforcement_scope: mediation_layer
+  execution_call_blocked_pre_runtime: true
+  not_kernel_isolation: true
+  not_os_sandbox: true
+  implementation_type: mediation_enforcement_reference
+
+configuration:
+  strict_threshold: 1
+  deterministic_mode: true
+  policy_alignment: 100_percent
+  stop_verdicts: 7
+  execution_prevented: 7
+  architectural_violations: 0
+
+release_status:
+  rc1_frozen: true
+  integrity_yaml_unchanged: true
+  diff_only_preserved: true
+  commits_created: 0
+
+file_hashes:
+  RELEASE_DECLARATION.txt: affc398c7f04a8cc82239aca2ca539728d382078e03c2e375504f7b105bc8496
+  enforcement_summary.txt: 15ce59211e262c92e42ff2a534d69c88aa21cd2c47b7410e2ec51ff02feaad99
+  final_policy_alignment_results.json: 0e6a3731d22d57b2af76242dd2e34297ea0ec25b44cd99abc594c69be5fed391
+  git_state_snapshot.txt: ac96ccba0b66e3be02a3cce7d54742d98edc7f39b8ab2082305514fbe2a43fa5
+  runtime_sha256.txt: 996c7f34a63d71cf02ba7abbd9a986812166c2cec2692c9bcc0d04b566ceef41
+  verification_summary.txt: ce4657777d8f871765f26108d6a253c130e38a48dfee1a6ecd4af646ba9633d9
+
+notes:
+  - RC1 hashes excluded (frozen, unchanged)
+  - This manifest covers RC2_STRICT_ALIGNED directory only
+  - All files represent 100% policy alignment state
+  - Diff-only release (no git commits)

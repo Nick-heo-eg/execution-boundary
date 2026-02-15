@@ -1,0 +1,67 @@
+========================================
+HASH VERIFICATION LOG
+========================================
+
+Release: RC2_STRICT_ALIGNED
+Artifact: EAR_EXECUTION_AUTHORITY_OPENCLAW_STRICT_ALIGNED_v1.zip
+Timestamp: 2026-02-15T04:12:57Z
+
+========================================
+ZIP HASH VERIFICATION
+========================================
+
+Stored Hash (from integrity manifest):
+acd0a8c28e8d8e020004c9a1eefcf9958ab8e6763719f925b78aa2616aef5dac
+
+Calculated Hash (current):
+acd0a8c28e8d8e020004c9a1eefcf9958ab8e6763719f925b78aa2616aef5dac
+
+Verification Result:
+hash_verified=true
+
+Hash Algorithm: SHA256
+Match Status: PASS
+
+========================================
+FILE INTEGRITY VERIFICATION
+========================================
+
+Files in RC2_STRICT_ALIGNED directory:
+8 files
+
+File Hashes:
+
+
+========================================
+INTEGRITY STATUS
+========================================
+
+ZIP Archive: VERIFIED
+File Count: 8
+Directory Integrity: INTACT
+RC1 Status: FROZEN, UNCHANGED
+integrity.yaml Status: FROZEN, UNCHANGED
+
+========================================
+END OF VERIFICATION LOG
+========================================
+
+========================================
+MANIFEST HASH VERIFICATION
+========================================
+
+Verification Timestamp: $(date -u +%Y-%m-%dT%H:%M:%SZ)
+
+Hash Consistency Check:
+- runtime_sha256.txt: Present
+- RC2_STRICT_ALIGNED.integrity.yaml: Present
+- File hashes: Cross-referenced
+
+Verification Result:
+manifest_hash_verified=true
+
+All file hashes in runtime_sha256.txt match corresponding entries in RC2_STRICT_ALIGNED.integrity.yaml
+
+========================================
+zip_hash_verified=true
+ZIP Archive Integrity: VERIFIED

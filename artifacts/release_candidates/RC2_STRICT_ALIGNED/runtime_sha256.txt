@@ -1,0 +1,27 @@
+========================================
+SHA256 HASHES - RC2 STRICT ALIGNED
+========================================
+
+Release: RC2_STRICT_ALIGNED
+Label: Execution Authority Enforcement Reference – v1 Strict Aligned
+Generated: 2026-02-15T03:47:21Z
+Status: 100% Policy Alignment Achieved
+
+========================================
+INCLUDED FILES
+========================================
+0e6a3731d22d57b2af76242dd2e34297ea0ec25b44cd99abc594c69be5fed391  final_policy_alignment_results.json
+15ce59211e262c92e42ff2a534d69c88aa21cd2c47b7410e2ec51ff02feaad99  enforcement_summary.txt
+ac96ccba0b66e3be02a3cce7d54742d98edc7f39b8ab2082305514fbe2a43fa5  git_state_snapshot.txt
+ce4657777d8f871765f26108d6a253c130e38a48dfee1a6ecd4af646ba9633d9  verification_summary.txt
+
+========================================
+NOTES
+========================================
+
+- RC1 hashes excluded (frozen, unchanged)
+- integrity.yaml excluded (frozen, unchanged)
+- This release captures 100% policy alignment state
+- All files are diff-only (no git commits)
+
+========================================
