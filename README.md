@@ -1,29 +1,96 @@
-# Execution Authority Runtime - RC2 Strict Aligned
+# Execution Boundary
 
-> **Public Entry Specification Repository** — Runtime and internal orchestration files removed.
+**Execution is not default.**
 
-> **Runtime implementation moved to:** [execution-runtime-lab](https://github.com/Nick-heo-eg/execution-runtime-lab) — [v0.1.0-runtime-lab](https://github.com/Nick-heo-eg/execution-runtime-lab/releases/tag/v0.1.0-runtime-lab)
+**AI systems may reason freely. Execution must be explicitly allowed.**
 
-> **BASELINE SEALED:** RC2_STRICT_ALIGNED is the current stable baseline. All future releases reference this as the structural foundation for mediation-layer pre-execution enforcement.
+This repository is the structural entry point for the Execution Boundary architecture.
+
+---
+
+## Architecture Overview
+
+The Execution Boundary architecture enforces a four-layer separation between intent and execution:
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│ 1. Intent Layer                                                 │
+│    User requests, agent reasoning, tool calls                   │
+└──────────────────────────┬──────────────────────────────────────┘
+                           │
+                           ▼
+┌─────────────────────────────────────────────────────────────────┐
+│ 2. Judgment Layer                                               │
+│    Authority decision: STOP │ HOLD │ ALLOW                      │
+│    Policy evaluation BEFORE execution attempt                   │
+└──────────────────────────┬──────────────────────────────────────┘
+                           │
+                           ▼
+┌─────────────────────────────────────────────────────────────────┐
+│ 3. Execution Layer                                              │
+│    Physical execution (only if ALLOW verdict received)          │
+│    Blocked at boundary if STOP or HOLD                          │
+└──────────────────────────┬──────────────────────────────────────┘
+                           │
+                           ▼
+┌─────────────────────────────────────────────────────────────────┐
+│ 4. Observability Layer                                          │
+│    Decision-only trace (judgment logged, execution monitored)   │
+│    Cryptographically verifiable proof artifacts                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+**Key Principle:** Judgment precedes execution. STOP verdicts prevent execution BEFORE `execution_call()`.
+
+---
+
+## Repository Map
+
+The Execution Boundary architecture is distributed across multiple specialized repositories:
+
+### Specification Repositories
+
+- **[ai-execution-boundary-spec](https://github.com/Nick-heo-eg/ai-execution-boundary-spec)** — Core boundary specification and authority definitions
+- **[judgment-boundary-otel-spec](https://github.com/Nick-heo-eg/judgment-boundary-otel-spec)** — OpenTelemetry integration for judgment tracing
+- **[agent-judgment-spec](https://github.com/Nick-heo-eg/agent-judgment-spec)** — Agent-level judgment interface specification
+
+### Runtime Implementation
+
+- **[execution-runtime-lab](https://github.com/Nick-heo-eg/execution-runtime-lab)** — Runtime implementation workspace with CI-verified adversarial protection [![CI](https://github.com/Nick-heo-eg/execution-runtime-lab/actions/workflows/adversarial-proof.yml/badge.svg)](https://github.com/Nick-heo-eg/execution-runtime-lab/actions/workflows/adversarial-proof.yml)
+
+### Proof & Verification
+
+- **[execution-proof-public](https://github.com/Nick-heo-eg/execution-proof-public)** — Public execution proof artifacts and verification tools
+- **[telegram-judgment-demo-proof](https://github.com/Nick-heo-eg/telegram-judgment-demo-proof)** — Telegram integration judgment demonstration
+- **[decision-only-observability](https://github.com/Nick-heo-eg/decision-only-observability)** — Decision-only trace observability framework
+
+### Domain Applications
+
+- **[stop-first-rag](https://github.com/Nick-heo-eg/stop-first-rag)** — STOP-first retrieval-augmented generation pattern
+
+---
+
+## Stable Baseline
+
+**Current Structural Baseline:** RC2_STRICT_ALIGNED
 
 [![Release](https://img.shields.io/github/v/release/Nick-heo-eg/execution-boundary?label=RC2_STRICT_ALIGNED)](https://github.com/Nick-heo-eg/execution-boundary/releases/tag/RC2_STRICT_ALIGNED)
 [![Policy Alignment](https://img.shields.io/badge/Policy%20Alignment-100%25-brightgreen)](https://github.com/Nick-heo-eg/execution-boundary/tree/main/artifacts/release_candidates/RC2_STRICT_ALIGNED)
 [![Pre-Runtime Blocking](https://img.shields.io/badge/Pre--Runtime%20Blocking-7%2F7%20STOP-red)](https://github.com/Nick-heo-eg/execution-boundary/releases/tag/RC2_STRICT_ALIGNED)
 [![Baseline](https://img.shields.io/badge/Baseline-RC2__STRICT__ALIGNED-blue)](https://github.com/Nick-heo-eg/execution-boundary/tree/main)
-[![Runtime Lab - CI Verified](https://github.com/Nick-heo-eg/execution-runtime-lab/actions/workflows/adversarial-proof.yml/badge.svg)](https://github.com/Nick-heo-eg/execution-runtime-lab/actions/workflows/adversarial-proof.yml)
 
-## Latest Stable Release
+RC2_STRICT_ALIGNED is the sealed structural foundation for judgment-layer pre-execution enforcement. All future releases reference this baseline for architectural alignment.
 
-**RC2_STRICT_ALIGNED – Strict Mediation Pre-Runtime Enforcement**
+**Runtime implementation:** [execution-runtime-lab v0.1.0](https://github.com/Nick-heo-eg/execution-runtime-lab/releases/tag/v0.1.0-runtime-lab)
 
-This release implements **mediation-layer pre-execution enforcement** with 100% policy alignment and deterministic strict threshold.
+### Scope Declaration
 
 **This IS:**
 
-- ✅ Mediation layer enforcement
-- ✅ Pre-runtime blocking (execution prevented BEFORE `execution_call()`)
+- ✅ Judgment layer enforcement
+- ✅ Pre-execution blocking (execution prevented BEFORE `execution_call()`)
 - ✅ Policy-based authorization
-- ✅ Application-layer governance
+- ✅ Application-layer authority governance
 
 **This IS NOT:**
 
@@ -32,13 +99,23 @@ This release implements **mediation-layer pre-execution enforcement** with 100% 
 - ❌ Container runtime security
 - ❌ Hardware-level isolation
 
+The Execution Boundary operates at the application mediation layer, not system isolation layer.
+
+---
+
+## RC2_STRICT_ALIGNED Release
+
+**RC2_STRICT_ALIGNED – Strict Mediation Pre-Execution Enforcement**
+
+This release implements **judgment-layer pre-execution enforcement** with 100% policy alignment and deterministic strict threshold.
+
 ### Release Metrics
 
 | Metric                       | Value                     |
 | ---------------------------- | ------------------------- |
 | **Policy Alignment**         | 100%                      |
 | **Test Scenarios**           | 8/8 matched               |
-| **STOP Verdicts**            | 7 (pre-runtime blocked)   |
+| **STOP Verdicts**            | 7 (pre-execution blocked) |
 | **ALLOW Verdicts**           | 1 (executed successfully) |
 | **Architectural Violations** | 0                         |
 | **RC1 Status**               | FROZEN, UNCHANGED         |
@@ -46,9 +123,62 @@ This release implements **mediation-layer pre-execution enforcement** with 100% 
 
 **Download:** [RC2_STRICT_ALIGNED.zip](https://github.com/Nick-heo-eg/execution-boundary/releases/tag/RC2_STRICT_ALIGNED)
 
+### Release Artifact Structure
+
+```
+artifacts/release_candidates/
+├── RC2_STRICT_ALIGNED/                     # Release directory (9 files)
+│   ├── REFERENCE_MANIFEST.yaml             # Version 1 enforcement scope definition
+│   ├── RELEASE_DECLARATION.txt             # Judgment layer implementation scope (7.5K)
+│   ├── RC2_STRICT_ALIGNED.integrity.yaml   # File-level hash manifest
+│   ├── verification_log.txt                # Hash verification results
+│   ├── final_policy_alignment_results.json # 100% policy alignment proof (13K)
+│   ├── enforcement_summary.txt             # Enforcement metrics summary (4.6K)
+│   ├── verification_summary.txt            # Verification details (4.8K)
+│   ├── git_state_snapshot.txt              # Git state at release time
+│   └── runtime_sha256.txt                  # Individual file hashes
+├── RC2_STRICT_ALIGNED.zip                  # Sealed release archive (15K)
+└── RC2_STRICT_ALIGNED.integrity.yaml       # ZIP integrity manifest
+```
+
+**Key Documents:**
+
+1. **REFERENCE_MANIFEST.yaml** - Defines enforcement scope (judgment_layer, NOT kernel isolation)
+2. **RELEASE_DECLARATION.txt** - Full implementation scope clarification
+3. **final_policy_alignment_results.json** - Test results and enforcement metrics
+4. **verification_log.txt** - Hash verification proof (manifest_hash_verified=true, zip_hash_verified=true)
+
+### Enforcement Configuration
+
+```yaml
+enforcement_scope: judgment_layer
+execution_boundary: pre_execution_blocking
+strict_threshold: 1
+deterministic_mode: true
+policy_alignment_percent: 100
+```
+
+**Judgment Flow:**
+
+```
+Agent Input → Authority Client → Gateway → Policy Evaluation → Verdict
+                                                                  ↓
+ExecutionBridge ← Verdict ← Gateway Response ← Risk Scoring
+```
+
+**Execution Control:**
+
+```typescript
+verdict === ALLOW ? execute() : block();
+```
+
+**Blocking Point:** BEFORE `execution_call()`
+
 ---
 
-## Quick Reproduce (3 minutes)
+## Appendix
+
+### Quick Reproduce (3 minutes)
 
 ```bash
 # 1. Clone the repository
@@ -73,7 +203,7 @@ sha256sum ../RC2_STRICT_ALIGNED.zip
 cat final_policy_alignment_results.json
 ```
 
-### Expected Output
+#### Expected Output
 
 When viewing `final_policy_alignment_results.json`, you should see:
 
@@ -104,64 +234,7 @@ When viewing `final_policy_alignment_results.json`, you should see:
 - ✅ `deterministic_mode: true` - No heuristics, pure risk score enforcement
 - ✅ `architectural_violations: 0` - Verdict-execution separation maintained
 
----
-
-## Release Artifact Structure
-
-```
-artifacts/release_candidates/
-├── RC2_STRICT_ALIGNED/                     # Release directory (9 files)
-│   ├── REFERENCE_MANIFEST.yaml             # Version 1 enforcement scope definition
-│   ├── RELEASE_DECLARATION.txt             # Mediation layer implementation scope (7.5K)
-│   ├── RC2_STRICT_ALIGNED.integrity.yaml   # File-level hash manifest
-│   ├── verification_log.txt                # Hash verification results
-│   ├── final_policy_alignment_results.json # 100% policy alignment proof (13K)
-│   ├── enforcement_summary.txt             # Enforcement metrics summary (4.6K)
-│   ├── verification_summary.txt            # Verification details (4.8K)
-│   ├── git_state_snapshot.txt              # Git state at release time
-│   └── runtime_sha256.txt                  # Individual file hashes
-├── RC2_STRICT_ALIGNED.zip                  # Sealed release archive (15K)
-└── RC2_STRICT_ALIGNED.integrity.yaml       # ZIP integrity manifest
-```
-
-**Key Documents:**
-
-1. **REFERENCE_MANIFEST.yaml** - Defines enforcement scope (mediation_layer, NOT kernel isolation)
-2. **RELEASE_DECLARATION.txt** - Full implementation scope clarification
-3. **final_policy_alignment_results.json** - Test results and enforcement metrics
-4. **verification_log.txt** - Hash verification proof (manifest_hash_verified=true, zip_hash_verified=true)
-
----
-
-## Enforcement Configuration
-
-```yaml
-enforcement_scope: mediation_layer
-execution_boundary: pre_runtime_blocking
-strict_threshold: 1
-deterministic_mode: true
-policy_alignment_percent: 100
-```
-
-**Mediation Flow:**
-
-```
-OpenClaw Input → EAR Client → Gateway → Policy Evaluation → Verdict
-                                                              ↓
-ExecutionBridge ← Verdict ← Gateway Response ← Risk Scoring
-```
-
-**Execution Control:**
-
-```typescript
-verdict === ALLOW ? execute() : block();
-```
-
-**Blocking Point:** BEFORE `execution_call()`
-
----
-
-## Integrity Verification
+### Integrity Verification
 
 **ZIP Archive SHA256:**
 
@@ -180,14 +253,12 @@ sha256sum artifacts/release_candidates/RC2_STRICT_ALIGNED.zip
 - `RC2_STRICT_ALIGNED/runtime_sha256.txt`
 - `RC2_STRICT_ALIGNED/RC2_STRICT_ALIGNED.integrity.yaml`
 
----
+### Package Contents (Historical)
 
-## Package Contents (Historical)
-
-This repository also contains earlier demo packages:
+This repository also contains earlier demonstration packages:
 
 1. **EAR_DEMO_STAGE_01_TUI_SKELETON.zip**
-   - UI scaffold for mediation visualization
+   - UI scaffold for judgment visualization
 
 2. **EAR_STAGE_03_RUNTIME.zip**
    - Risk Engine + Pending Queue + Scope-bound Token Skeleton
@@ -197,10 +268,10 @@ This repository also contains earlier demo packages:
 ## Core Principle
 
 **The agent may reason freely.**
+
 **Execution is physically separated.**
 
-Tagline:
-_OpenClaw runs 24/7. The runtime holds the keys._
+**Judgment precedes execution.**
 
 ---
 
