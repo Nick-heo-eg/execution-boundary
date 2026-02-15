@@ -1,5 +1,7 @@
 # Execution Boundary
 
+> **MASTER_FROZEN:** Historical reference only. RC2_STRICT_ALIGNED is the current stable baseline. See [main branch](https://github.com/Nick-heo-eg/execution-boundary/tree/main) for the active release.
+
 <!-- AUTO-GENERATED FROM TOPOLOGY_REGISTRY.yaml - DO NOT EDIT MANUALLY -->
 
 Execution is not created without judgment.
