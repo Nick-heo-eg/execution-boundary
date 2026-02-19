@@ -1,5 +1,7 @@
 # Execution Boundary
 
+**Role:** Entry point and architectural map for execution boundary research.
+
 > **Branch Identity:** master branch is canonical structural execution-boundary. openclaw-integration branch contains experimental runtime integration and is not part of the structural proof layer.
 
 > **RC2_STRICT_ALIGNED** is the current stable baseline. See [openclaw-integration branch](https://github.com/Nick-heo-eg/execution-boundary/tree/openclaw-integration) for runtime integration.
