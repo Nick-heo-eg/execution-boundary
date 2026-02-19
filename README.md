@@ -1,5 +1,8 @@
 # Execution Boundary
 
+<!-- AUTO-GENERATED FROM TOPOLOGY_REGISTRY.yaml - DO NOT EDIT MANUALLY -->
+<!-- Last auto-generated: 2026-02-19T22:40:00Z -->
+
 **Execution is not created without judgment.**
 
 This repository is the entry point and architectural map for the Execution Boundary work.
