@@ -4,7 +4,7 @@
 
 This repository is the entry point and architectural map for the Execution Boundary work.
 
-It defines the core idea:
+<!-- AEBS alignment applied 2026-02-19 -->
 
 > Execution must not be the default outcome of AI reasoning.
 
@@ -50,6 +50,25 @@ Defines the core principle:
 Execution requires explicit judgment.
 
 This repository (execution-boundary) acts as the conceptual anchor.
+
+---
+
+## 0️⃣ Standardization Layer (AEBS)
+
+The structural formalization of Execution Boundary is defined in:
+
+**AI Execution Boundary Standard (AEBS)**
+https://github.com/Nick-heo-eg/ai-execution-boundary-spec
+
+AEBS defines:
+
+- Role separation requirements
+- Decision state semantics
+- Enforcement constraints
+- Conformance levels
+
+This repository represents the conceptual origin.
+AEBS represents the normative structural specification.
 
 ---
 
@@ -110,6 +129,9 @@ Judgment must be structurally visible.
 
 If execution occurs, it must be explainable.
 
+Execution Boundary as a concept is formalized in AEBS.
+This repository remains the architectural and philosophical anchor.
+
 ---
 
 ## Relationship to Observability
@@ -126,12 +148,11 @@ It complements existing telemetry systems by emphasizing:
 
 ## How to Navigate
 
-If you are:
-
-* Exploring the concept → start here
-* Looking for trace schema → see `ai-judgment-trail-spec`
-* Looking for runtime experiments → see `execution-runtime-lab`
-* Looking for proof demonstrations → see `telegram-judgment-demo-proof`
+- **Exploring the concept** → start here
+- **Looking for the formal structural standard** → see [AI Execution Boundary Standard (AEBS)](https://github.com/Nick-heo-eg/ai-execution-boundary-spec)
+- **Looking for trace schema** → see [ai-judgment-trail-spec](https://github.com/Nick-heo-eg/ai-judgment-trail-spec)
+- **Looking for runtime experiments** → see execution-runtime-lab
+- **Looking for proof demonstrations** → see [telegram-judgment-demo-proof](https://github.com/Nick-heo-eg/telegram-judgment-demo-proof)
 
 ---
 
