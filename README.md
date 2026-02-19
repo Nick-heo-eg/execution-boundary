@@ -169,3 +169,9 @@ Specifications and runtime implementations evolve independently.
 ## License
 
 Apache 2.0
+
+---
+
+*Last auto-generated: 2026-02-19 22:45:00 UTC*
+*Source: TOPOLOGY_REGISTRY.yaml v1.0*
+*Registry Hash: 8a3f5b2c*
