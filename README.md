@@ -1,166 +1,147 @@
 # Execution Boundary
 
-**Role:** Entry point and architectural map for execution boundary research.
+**Execution is not created without judgment.**
 
-> **Branch Identity:** master branch is canonical structural execution-boundary. openclaw-integration branch contains experimental runtime integration and is not part of the structural proof layer.
+This repository is the entry point and architectural map for the Execution Boundary work.
 
-> **RC2_STRICT_ALIGNED** is the current stable baseline. See [openclaw-integration branch](https://github.com/Nick-heo-eg/execution-boundary/tree/openclaw-integration) for runtime integration.
+It defines the core idea:
 
-<!-- AUTO-GENERATED FROM TOPOLOGY_REGISTRY.yaml - DO NOT EDIT MANUALLY -->
+> Execution must not be the default outcome of AI reasoning.
 
-Execution is not created without judgment.
-
-This repository is the entry point to the Execution Boundary topology.
-
-It organizes structural proof, specification, observability alignment, and demonstrations into a layered system.
+All related specifications, runtime experiments, and demonstrations branch from this structure.
 
 ---
 
-## Quick Verify
+## Why Execution Boundary Exists
 
-Verify freeze integrity using public information only (no private repository access required):
+Modern AI systems often couple reasoning and execution.
 
-```bash
-bash VERIFY_FREEZE.sh
-```
+When execution follows directly from model output, post-incident analysis becomes difficult.
+Questions shift from:
 
-**What it checks:**
-- Registry hash format validation
-- README footer hash extraction and verification
-- Cross-document hash synchronization (FREEZE_STATUS.md ↔ README.md)
-- Trust model hierarchy documentation
-- Protocol compatibility lineage
+> What happened?
 
-**Output:** `PASS` or `FAIL` with detailed logs in `artifacts/public-verify-logs/`
+to:
 
-**Trust model:** This verification depends on structure, not intent. See `ENGINE_TRUST_MODEL.md` for the complete trust hierarchy.
+> Why was execution allowed?
 
----
+Execution Boundary introduces a structural separation between:
 
-## What Is an Execution Boundary?
+* Intent
+* Judgment
+* Execution
 
-An execution boundary enforces that:
-
-- Execution is not the default.
-- A decision must be issued before execution.
-- Authority is explicit.
-- Accountability is observable.
-
-This is not an output filter.
-This is not a guardrail.
-
-This is structural enforcement before side effects occur.
+This separation enables traceability before execution occurs.
 
 ---
 
-## Topology Overview
+## Architectural Map
 
-The Execution Boundary project is intentionally separated into layers:
+The ecosystem is organized into four layers:
 
 ```
-┌──────────────────────────────────────────┐
-│  Structural Proof                        │
-│  → execution-proof-public                 │
-│  → telegram-judgment-demo-proof           │
-├──────────────────────────────────────────┤
-│  Core Specifications                     │
-│  → ai-execution-boundary-spec             │
-│  → ai-judgment-trail-spec                 │
-├──────────────────────────────────────────┤
-│  Observability & Telemetry Alignment     │
-│  → decision-only-observability            │
-│  → judgment-boundary-otel-spec            │
-│  → execution-boundary-otel-1.39-demo      │
-└──────────────────────────────────────────┘
+Philosophy → Specification → Runtime → Demonstration
 ```
 
-Each repository has a single responsibility.
+### 1️⃣ Philosophy Layer
+
+Defines the core principle:
+
+Execution requires explicit judgment.
+
+This repository (execution-boundary) acts as the conceptual anchor.
 
 ---
 
-## Start Here (Recommended Order)
+### 2️⃣ Specification Layer
 
-1. **Structural Proof**
-   - https://github.com/Nick-heo-eg/execution-proof-public 🆕
-   Latest sealed structural STOP proof
+Defines structured trace semantics and schema.
 
-2. **Structural Proof**
-   - https://github.com/Nick-heo-eg/telegram-judgment-demo-proof
-   Real-world STOP/HOLD demonstration
+Primary repository:
 
-3. **Core Specification**
-   - https://github.com/Nick-heo-eg/ai-execution-boundary-spec
-   Formal execution authority specification
-   - https://github.com/Nick-heo-eg/ai-judgment-trail-spec
-   Minimal vendor-neutral log schema for AI decision context
-
-4. **Observability**
-   - https://github.com/Nick-heo-eg/decision-only-observability
-   Decision recording using existing telemetry
+* `ai-judgment-trail-spec` — Minimal vendor-neutral decision trace schema
 
 ---
 
-## Why Multiple Repositories?
+### 3️⃣ Runtime Layer
 
-The separation is intentional.
+Implements experimental execution control environments separated from specification.
 
-Execution boundaries involve:
+Primary repository:
 
-- Judgment
-- Authority issuance
-- Execution
-- Accountability
-
-Each layer is isolated to prevent conceptual and structural collapse.
-
-The repository topology mirrors the execution topology.
+* `execution-runtime-lab`
 
 ---
 
-## Scope
+### 4️⃣ Demonstration Layer
 
-This project demonstrates structural authority enforcement.
+Provides observable proof that execution can be structurally blocked or held.
 
-It does not provide:
+Example:
 
-- Production-ready software
-- Safety guarantees
-- Policy completeness
-- Regulatory certification
+* `telegram-judgment-demo-proof`
 
-It demonstrates structure.
+---
+
+## What This Repository Is
+
+* Architectural reference
+* Conceptual boundary definition
+* Map of related work
+
+---
+
+## What This Repository Is Not
+
+* Not a runtime implementation
+* Not a policy engine
+* Not a compliance framework
+* Not a production system
+
+Execution logic and enforcement belong in runtime repositories.
 
 ---
 
 ## Core Principle
 
-We do not rely on intent.
-We rely on structure.
+Execution is a consequence, not a default.
+
+Judgment must be structurally visible.
+
+If execution occurs, it must be explainable.
 
 ---
 
-## Trust Boundary
+## Relationship to Observability
 
-**Canonical Authority:** `echo-core-private` (private repository - source of truth)
+Execution Boundary aligns with structured logging and observability practices.
 
-**Public Verification:** This repository (defensive layer - community accessible)
+It complements existing telemetry systems by emphasizing:
 
-Public verification (`VERIFY_FREEZE.sh`) detects desynchronization between public documents.
-
-It does NOT provide authoritative validation (requires private repository access).
-
-**For complete trust model:** See [`TRUST_BOUNDARY.md`](TRUST_BOUNDARY.md)
-
-**Key concepts:**
-- Authority Source Definition
-- Public Verification Role
-- Engine Integrity Root
-- Verification Escalation Path (3 levels)
-- Threat Model Summary
+* Pre-execution traceability
+* Explicit decision states (ALLOW / HOLD / STOP)
+* Separation of reasoning from action
 
 ---
 
-*Last auto-generated: 2026-02-14 02:28:01 UTC*
-*Source: TOPOLOGY_REGISTRY.yaml v2.0*
-*Registry Hash: a4750fb4*
+## How to Navigate
 
+If you are:
+
+* Exploring the concept → start here
+* Looking for trace schema → see `ai-judgment-trail-spec`
+* Looking for runtime experiments → see `execution-runtime-lab`
+* Looking for proof demonstrations → see `telegram-judgment-demo-proof`
+
+---
+
+## Status
+
+This repository is stable as a conceptual anchor.
+Specifications and runtime implementations evolve independently.
+
+---
+
+## License
+
+Apache 2.0
