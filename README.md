@@ -63,7 +63,7 @@ The Execution Boundary project is intentionally separated into layers:
 ├──────────────────────────────────────────┤
 │  Core Specifications                     │
 │  → ai-execution-boundary-spec             │
-│  → spec                                   │
+│  → ai-judgment-trail-spec                 │
 ├──────────────────────────────────────────┤
 │  Observability & Telemetry Alignment     │
 │  → decision-only-observability            │
@@ -89,6 +89,8 @@ Each repository has a single responsibility.
 3. **Core Specification**
    - https://github.com/Nick-heo-eg/ai-execution-boundary-spec
    Formal execution authority specification
+   - https://github.com/Nick-heo-eg/ai-judgment-trail-spec
+   Minimal vendor-neutral log schema for AI decision context
 
 4. **Observability**
    - https://github.com/Nick-heo-eg/decision-only-observability
