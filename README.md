@@ -151,7 +151,7 @@ It complements existing telemetry systems by emphasizing:
 - **Exploring the concept** → start here
 - **Looking for the formal structural standard** → see [AI Execution Boundary Standard (AEBS)](https://github.com/Nick-heo-eg/ai-execution-boundary-spec)
 - **Looking for trace schema** → see [ai-judgment-trail-spec](https://github.com/Nick-heo-eg/ai-judgment-trail-spec)
-- **Looking for runtime experiments** → see execution-runtime-lab
+- **Looking for runtime experiments** → see [execution-runtime-lab](https://github.com/Nick-heo-eg/execution-runtime-lab)
 - **Looking for proof demonstrations** → see [telegram-judgment-demo-proof](https://github.com/Nick-heo-eg/telegram-judgment-demo-proof)
 
 ---
