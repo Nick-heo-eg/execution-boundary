@@ -59,7 +59,7 @@ Defines structured trace semantics and schema.
 
 Primary repository:
 
-* `ai-judgment-trail-spec` — Minimal vendor-neutral decision trace schema
+* [ai-judgment-trail-spec](https://github.com/Nick-heo-eg/ai-judgment-trail-spec) — Minimal vendor-neutral decision trace schema
 
 ---
 
@@ -69,7 +69,7 @@ Implements experimental execution control environments separated from specificat
 
 Primary repository:
 
-* `execution-runtime-lab`
+* [execution-runtime-lab](https://github.com/Nick-heo-eg/execution-runtime-lab) — Runtime experimentation workspace
 
 ---
 
@@ -79,7 +79,7 @@ Provides observable proof that execution can be structurally blocked or held.
 
 Example:
 
-* `telegram-judgment-demo-proof`
+* [telegram-judgment-demo-proof](https://github.com/Nick-heo-eg/telegram-judgment-demo-proof) — STOP/HOLD demonstration
 
 ---
 
