@@ -1,7 +1,9 @@
 # Execution Boundary
 
 Pre-execution judgment gate for AI systems.
-AI proposes → Gate decides (STOP / HOLD / ALLOW) → execution proceeds only if allowed.
+Deterministic STOP / HOLD / ALLOW before runtime.
+
+AI proposes → Gate decides → execution proceeds only if allowed.
 All decisions are logged in an append-only trail.
 
 <!-- TODO: Replace with actual terminal recording (asciinema or GIF) -->
@@ -32,13 +34,12 @@ All decisions are logged in an append-only trail.
 
 ## Repositories
 
-| Layer | Repo | What it does | Try it |
-|-------|------|-------------|--------|
-| **Log Schema** | [ai-judgment-trail-spec](https://github.com/Nick-heo-eg/ai-judgment-trail-spec) | 9-field decision log format, OTel-aligned | `python3 examples/run_ajt_demo.py` |
-| **Governance Standard** | [ai-execution-boundary-spec](https://github.com/Nick-heo-eg/ai-execution-boundary-spec) | Role separation, conformance levels (AEBS) | Read `AEBS_SPEC.md` |
-| **Extraction Engine** | [ajt-grounded-extract](https://github.com/Nick-heo-eg/ajt-grounded-extract) | Evidence-based extraction, PyPI package | `pip install ajt-grounded-extract` |
-| **Runtime Lab** | [execution-runtime-lab](https://github.com/Nick-heo-eg/execution-runtime-lab) | Experimental gate implementations | `npm install && npm run verify` |
-| **Demo** | [telegram-judgment-demo-proof](https://github.com/Nick-heo-eg/telegram-judgment-demo-proof) | Live STOP/HOLD proof via Telegram | See repo README |
+| Layer               | Repo                         | What it does                               | Try it                             |
+| ------------------- | ---------------------------- | ------------------------------------------ | ---------------------------------- |
+| Log Schema          | ai-judgment-trail-spec       | 9-field decision log format, OTel-aligned  | `python3 examples/run_ajt_demo.py` |
+| Governance Standard | ai-execution-boundary-spec   | Role separation, conformance levels (AEBS) | Read `AEBS_SPEC.md`                |
+| Runtime Lab         | execution-runtime-lab        | Experimental execution gates               | `npm install && npm run verify`    |
+| Demo                | telegram-judgment-demo-proof | Live STOP/HOLD proof via Telegram          | See repo README                    |
 
 ---
 
@@ -77,8 +78,6 @@ Output: 8/8 adversarial attempts blocked, all decisions logged to `decision_log.
 ai-judgment-trail-spec          ← what gets logged (schema)
         │
 ai-execution-boundary-spec     ← structural rules (standard)
-        │
-ajt-grounded-extract            ← production engine (pip install)
         │
 execution-runtime-lab           ← experimental gate
         │
