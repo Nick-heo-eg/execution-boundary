@@ -1,177 +1,95 @@
 # Execution Boundary
 
-<!-- AUTO-GENERATED FROM TOPOLOGY_REGISTRY.yaml - DO NOT EDIT MANUALLY -->
-<!-- Last auto-generated: 2026-02-19T22:40:00Z -->
+Pre-execution judgment gate for AI systems.
+AI proposes → Gate decides (STOP / HOLD / ALLOW) → execution proceeds only if allowed.
+All decisions are logged in an append-only trail.
 
-**Execution is not created without judgment.**
-
-This repository is the entry point and architectural map for the Execution Boundary work.
-
-<!-- AEBS alignment applied 2026-02-19 -->
-
-> Execution must not be the default outcome of AI reasoning.
-
-All related specifications, runtime experiments, and demonstrations branch from this structure.
-
----
-
-## Why Execution Boundary Exists
-
-Modern AI systems often couple reasoning and execution.
-
-When execution follows directly from model output, post-incident analysis becomes difficult.
-Questions shift from:
-
-> What happened?
-
-to:
-
-> Why was execution allowed?
-
-Execution Boundary introduces a structural separation between:
-
-* Intent
-* Judgment
-* Execution
-
-This separation enables traceability before execution occurs.
-
----
-
-## Architectural Map
-
-The ecosystem is organized into four layers:
+<!-- TODO: Replace with actual terminal recording (asciinema or GIF) -->
+<!-- 2-second demo: clone → run → STOP appears -->
 
 ```
-Philosophy → Specification → Runtime → Demonstration
+┌──────────────┐
+│  AI Output   │
+└──────┬───────┘
+       ▼
+┌──────────────┐     ┌─────────────────────────┐
+│ Judgment Gate │────▶│ decision_log.jsonl       │
+│ STOP/HOLD/   │     │ (append-only, auditable) │
+│ ALLOW        │     └─────────────────────────┘
+└──────┬───────┘
+       ▼
+   ┌───────┐
+   │ALLOW? │
+   ├─ no  ──▶ blocked. logged. done.
+   └─ yes ──▶ execution proceeds.
 ```
 
-### 1️⃣ Philosophy Layer
+---
 
-Defines the core principle:
+## Repositories
 
-Execution requires explicit judgment.
-
-This repository (execution-boundary) acts as the conceptual anchor.
+| Layer | Repo | What it does | Try it |
+|-------|------|-------------|--------|
+| **Log Schema** | [ai-judgment-trail-spec](https://github.com/Nick-heo-eg/ai-judgment-trail-spec) | 9-field decision log format, OTel-aligned | `python3 examples/run_ajt_demo.py` |
+| **Governance Standard** | [ai-execution-boundary-spec](https://github.com/Nick-heo-eg/ai-execution-boundary-spec) | Role separation, conformance levels (AEBS) | Read `AEBS_SPEC.md` |
+| **Extraction Engine** | [ajt-grounded-extract](https://github.com/Nick-heo-eg/ajt-grounded-extract) | Evidence-based extraction, PyPI package | `pip install ajt-grounded-extract` |
+| **Runtime Lab** | [execution-runtime-lab](https://github.com/Nick-heo-eg/execution-runtime-lab) | Experimental gate implementations | `npm install && npm run verify` |
+| **Demo** | [telegram-judgment-demo-proof](https://github.com/Nick-heo-eg/telegram-judgment-demo-proof) | Live STOP/HOLD proof via Telegram | See repo README |
 
 ---
 
-## 0️⃣ Standardization Layer (AEBS)
+## Quickstart (2 minutes)
 
-The structural formalization of Execution Boundary is defined in:
+**See a judgment trail:**
+```bash
+git clone https://github.com/Nick-heo-eg/ai-judgment-trail-spec
+cd ai-judgment-trail-spec
+python3 examples/run_ajt_demo.py
+```
 
-**AI Execution Boundary Standard (AEBS)**
-https://github.com/Nick-heo-eg/ai-execution-boundary-spec
+Output:
+```
+Decision: STOP
+Reason: missing_citation
+Risk Level: high
+Rule: R1_REQUIRE_EVIDENCE
+→ AI output blocked. No hallucination generated.
+```
 
-AEBS defines:
+**See execution gating:**
+```bash
+git clone https://github.com/Nick-heo-eg/execution-runtime-lab
+cd execution-runtime-lab
+npm install && npm run verify
+```
 
-- Role separation requirements
-- Decision state semantics
-- Enforcement constraints
-- Conformance levels
-
-This repository represents the conceptual origin.
-AEBS represents the normative structural specification.
-
----
-
-### 2️⃣ Specification Layer
-
-Defines structured trace semantics and schema.
-
-Primary repository:
-
-* [ai-judgment-trail-spec](https://github.com/Nick-heo-eg/ai-judgment-trail-spec) — Minimal vendor-neutral decision trace schema
-
----
-
-### 3️⃣ Runtime Layer
-
-Implements experimental execution control environments separated from specification.
-
-Primary repository:
-
-* [execution-runtime-lab](https://github.com/Nick-heo-eg/execution-runtime-lab) — Runtime experimentation workspace
+Output: 8/8 adversarial attempts blocked, all decisions logged to `decision_log.jsonl`.
 
 ---
 
-### 4️⃣ Demonstration Layer
+## How the pieces connect
 
-Provides observable proof that execution can be structurally blocked or held.
-
-Example:
-
-* [telegram-judgment-demo-proof](https://github.com/Nick-heo-eg/telegram-judgment-demo-proof) — STOP/HOLD demonstration
-
----
-
-## What This Repository Is
-
-* Architectural reference
-* Conceptual boundary definition
-* Map of related work
+```
+ai-judgment-trail-spec          ← what gets logged (schema)
+        │
+ai-execution-boundary-spec     ← structural rules (standard)
+        │
+ajt-grounded-extract            ← production engine (pip install)
+        │
+execution-runtime-lab           ← experimental gate
+        │
+telegram-judgment-demo-proof    ← live proof
+```
 
 ---
 
-## What This Repository Is Not
+## Related
 
-* Not a runtime implementation
-* Not a policy engine
-* Not a compliance framework
-* Not a production system
-
-Execution logic and enforcement belong in runtime repositories.
-
----
-
-## Core Principle
-
-Execution is a consequence, not a default.
-
-Judgment must be structurally visible.
-
-If execution occurs, it must be explainable.
-
-Execution Boundary as a concept is formalized in AEBS.
-This repository remains the architectural and philosophical anchor.
-
----
-
-## Relationship to Observability
-
-Execution Boundary aligns with structured logging and observability practices.
-
-It complements existing telemetry systems by emphasizing:
-
-* Pre-execution traceability
-* Explicit decision states (ALLOW / HOLD / STOP)
-* Separation of reasoning from action
-
----
-
-## How to Navigate
-
-- **Exploring the concept** → start here
-- **Looking for the formal structural standard** → see [AI Execution Boundary Standard (AEBS)](https://github.com/Nick-heo-eg/ai-execution-boundary-spec)
-- **Looking for trace schema** → see [ai-judgment-trail-spec](https://github.com/Nick-heo-eg/ai-judgment-trail-spec)
-- **Looking for runtime experiments** → see [execution-runtime-lab](https://github.com/Nick-heo-eg/execution-runtime-lab)
-- **Looking for proof demonstrations** → see [telegram-judgment-demo-proof](https://github.com/Nick-heo-eg/telegram-judgment-demo-proof)
-
----
-
-## Status
-
-This repository is stable as a conceptual anchor.
-Specifications and runtime implementations evolve independently.
+AJT decision logs align with [OpenTelemetry](https://github.com/open-telemetry/semantic-conventions) trace semantics.
+Proposals: [Issue #3244](https://github.com/open-telemetry/semantic-conventions/issues/3244) · [PR #3336](https://github.com/open-telemetry/semantic-conventions/pull/3336)
 
 ---
 
 ## License
 
 Apache 2.0
-
----
-
-*Last auto-generated: 2026-02-19 22:45:00 UTC*
-*Source: TOPOLOGY_REGISTRY.yaml v1.0*
-*Registry Hash: 8a3f5b2c*
