@@ -8,20 +8,24 @@ All decisions are logged in an append-only trail.
 <!-- 2-second demo: clone → run → STOP appears -->
 
 ```
-┌──────────────┐
-│  AI Output   │
-└──────┬───────┘
-       ▼
-┌──────────────┐     ┌─────────────────────────┐
-│ Judgment Gate │────▶│ decision_log.jsonl       │
-│ STOP/HOLD/   │     │ (append-only, auditable) │
-│ ALLOW        │     └─────────────────────────┘
-└──────┬───────┘
-       ▼
-   ┌───────┐
-   │ALLOW? │
-   ├─ no  ──▶ blocked. logged. done.
-   └─ yes ──▶ execution proceeds.
+    AI Output
+        │
+        ▼
+┌───────────────────┐
+│  Judgment Gate    │
+│ STOP / HOLD / ... │──▶ decision_log.jsonl (append-only)
+│      ALLOW        │
+└─────────┬─────────┘
+          │
+          ▼
+        ALLOW?
+          │
+    ┌─────┴─────┐
+   NO          YES
+    │            │
+    ▼            ▼
+ blocked     execution
+ & logged    proceeds
 ```
 
 ---
