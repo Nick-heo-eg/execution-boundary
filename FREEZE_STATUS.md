@@ -1,5 +1,9 @@
 # Topology Freeze Status
 
+**Scope Clarification:**
+This freeze applies strictly to the canonical topology registry and authority model.
+Documentation, examples, and repository presentation may evolve without affecting the frozen registry hash.
+
 **Registry Hash:** `a4750fb4e79881c94f1e3b7ce5d400b640026c041a7f004b053310a3a70b0c86`
 
 **Freeze Timestamp:** 2026-02-14 11:28:01 KST
