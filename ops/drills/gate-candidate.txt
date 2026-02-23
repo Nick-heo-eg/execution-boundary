@@ -1,0 +1,39 @@
+Gate Drill: CANDIDATE Mode Artifact
+=====================================
+Date: 2026-02-24
+Status: VERIFIED
+
+Test: Gate rejects CANDIDATE certification and exits 1
+
+---
+
+## Setup
+
+Certification with risk_flag=true:
+{
+  "execution_mode": "CANDIDATE",
+  "clean_streak": 0,
+  "risk_flag": true,
+  "updated_at": "2026-02-24T..."
+}
+
+---
+
+## Execution
+
+$ python3 main.py --cert certification.json
+[OK] execution_mode=CANDIDATE
+
+$ echo $?
+1
+
+---
+
+## Verification
+
+Gate behavior:
+- Parsed CANDIDATE mode correctly ✓
+- Exited with code 1 ✓
+- CI pipeline RED expected ✓
+
+Result: ✓ CANDIDATE artifact blocked execution

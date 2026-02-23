@@ -1,0 +1,41 @@
+Gate Drill: AUTO Mode Artifact
+================================
+Date: 2026-02-24
+Status: VERIFIED
+
+Test: Gate accepts AUTO certification and exits 0
+
+---
+
+## Setup
+
+$ cp certification.json ../pr-risk-guard/certification.json
+
+certification.json content:
+{
+  "execution_mode": "AUTO",
+  "clean_streak": 10,
+  "risk_flag": false,
+  "updated_at": "2026-02-24T..."
+}
+
+---
+
+## Execution
+
+$ python3 main.py --cert certification.json
+[OK] execution_mode=AUTO
+
+$ echo $?
+0
+
+---
+
+## Verification
+
+Gate behavior:
+- Parsed AUTO mode correctly ✓
+- Exited with code 0 ✓
+- CI pipeline GREEN expected ✓
+
+Result: ✓ AUTO artifact accepted, CI proceeds

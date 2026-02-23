@@ -1,0 +1,34 @@
+Gate Drill: Missing Artifact Fail-Safe
+========================================
+Date: 2026-02-24
+Status: VERIFIED
+
+Test: Gate fail-safe when certification file absent
+
+---
+
+## Setup
+
+$ rm -f certification.json
+
+---
+
+## Execution
+
+$ python3 main.py --cert certification.json
+[FAIL-SAFE] certification file not found
+
+$ echo $?
+3
+
+---
+
+## Verification
+
+Gate behavior:
+- Detected missing artifact ✓
+- Printed fail-safe message ✓
+- Exited with code 3 ✓
+- Did NOT proceed with execution ✓
+
+Result: ✓ Fail-safe engaged, no unsafe execution

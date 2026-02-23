@@ -1,0 +1,74 @@
+Authority Engine Mode Flip Drill
+==================================
+Date: 2026-02-24
+Status: VERIFIED
+
+Test Sequence: violation → reset → 10x clean_run
+
+---
+
+## Initial State
+
+$ python update_state.py reset
+event=reset clean_streak=0 risk_flag=False
+
+---
+
+## Test 1: Violation Event
+
+$ python update_state.py violation
+event=violation clean_streak=0 risk_flag=True
+
+$ python issue_certification.py
+{
+  "execution_mode": "CANDIDATE",
+  "clean_streak": 0,
+  "risk_flag": true,
+  "updated_at": "2026-02-24T..."
+}
+
+Result: ✓ CANDIDATE mode triggered by risk_flag override
+
+---
+
+## Test 2: Reset Event
+
+$ python update_state.py reset
+event=reset clean_streak=0 risk_flag=False
+
+$ python issue_certification.py
+{
+  "execution_mode": "HOLD",
+  "clean_streak": 0,
+  "risk_flag": false,
+  "updated_at": "2026-02-24T..."
+}
+
+Result: ✓ HOLD mode with streak reset
+
+---
+
+## Test 3: 10x Clean Run Sequence
+
+$ for i in {1..10}; do python update_state.py clean_run > /dev/null; done
+
+$ python issue_certification.py
+{
+  "execution_mode": "AUTO",
+  "clean_streak": 10,
+  "risk_flag": false,
+  "updated_at": "2026-02-24T..."
+}
+
+Result: ✓ AUTO mode after 10 consecutive clean runs
+
+---
+
+## Verification Summary
+
+Authority rule loop behaviors:
+- Risk flag override → CANDIDATE ✓
+- Streak < 10 → HOLD ✓
+- Streak ≥ 10 + no risk → AUTO ✓
+
+State transitions deterministic and reversible.
