@@ -39,7 +39,6 @@ All decisions are logged in an append-only trail.
 | Log Schema          | [ai-judgment-trail-spec](https://github.com/Nick-heo-eg/ai-judgment-trail-spec)       | 9-field decision log format, OTel-aligned  | `python3 examples/run_ajt_demo.py` |
 | Governance Standard | [ai-execution-boundary-spec](https://github.com/Nick-heo-eg/ai-execution-boundary-spec)   | Role separation, conformance levels (AEBS) | Read `AEBS_SPEC.md`                |
 | Runtime Lab         | [execution-runtime-lab](https://github.com/Nick-heo-eg/execution-runtime-lab)        | Experimental execution gates               | `npm install && npm run verify`    |
-| Demo                | [telegram-judgment-demo-proof](https://github.com/Nick-heo-eg/telegram-judgment-demo-proof) | Live STOP/HOLD proof via Telegram          | See repo README                    |
 
 ---
 
@@ -80,9 +79,7 @@ ai-judgment-trail-spec          ← what gets logged (schema)
 ai-execution-boundary-spec     ← structural rules (standard)
         │                          https://github.com/Nick-heo-eg/ai-execution-boundary-spec
 execution-runtime-lab           ← experimental gate
-        │                          https://github.com/Nick-heo-eg/execution-runtime-lab
-telegram-judgment-demo-proof    ← live proof
-                                   https://github.com/Nick-heo-eg/telegram-judgment-demo-proof
+                                   https://github.com/Nick-heo-eg/execution-runtime-lab
 ```
 
 ---
