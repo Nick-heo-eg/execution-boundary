@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Execution Boundary - Pre-execution AI Governance</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --terminal-bg: #0a0e14;
+            --terminal-green: #00ff41;
+            --terminal-dim: #1a2332;
+            --terminal-text: #c7d1d9;
+            --terminal-bright: #e6edf3;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--terminal-bg);
+            color: var(--terminal-text);
+            overflow-x: hidden;
+        }
+
+        .slide-container {
+            scroll-snap-type: y mandatory;
+            overflow-y: scroll;
+            height: 100vh;
+            height: 100dvh;
+        }
+
+        .slide {
+            height: 100vh;
+            height: 100dvh;
+            scroll-snap-align: start;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: clamp(2rem, 5vw, 4rem);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--terminal-green);
+            box-shadow: 0 0 10px var(--terminal-green);
+        }
+
+        .slide-content {
+            max-width: 900px;
+            width: 100%;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 700;
+            color: var(--terminal-green);
+            margin-bottom: clamp(1rem, 2vw, 2rem);
+            text-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-weight: 700;
+            color: var(--terminal-green);
+            margin-bottom: clamp(1rem, 2vw, 1.5rem);
+            text-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
+        }
+
+        h3 {
+            font-size: clamp(1.2rem, 2.5vw, 2rem);
+            font-weight: 700;
+            color: var(--terminal-bright);
+            margin-bottom: clamp(0.75rem, 1.5vw, 1rem);
+        }
+
+        p, li {
+            font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+            line-height: 1.6;
+            color: var(--terminal-text);
+        }
+
+        .tagline {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            color: var(--terminal-bright);
+            margin-bottom: clamp(1.5rem, 3vw, 2rem);
+            opacity: 0.9;
+        }
+
+        .terminal-box {
+            background: var(--terminal-dim);
+            border: 1px solid var(--terminal-green);
+            border-radius: 8px;
+            padding: clamp(1rem, 2vw, 2rem);
+            margin: clamp(1rem, 2vw, 2rem) 0;
+            font-family: 'JetBrains Mono', monospace;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
+        }
+
+        .terminal-header {
+            color: var(--terminal-green);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-size: clamp(0.8rem, 1.2vw, 1rem);
+        }
+
+        pre {
+            color: var(--terminal-text);
+            font-size: clamp(0.75rem, 1.2vw, 0.95rem);
+            line-height: 1.5;
+            overflow-x: auto;
+        }
+
+        .decision-flow {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.75rem, 1.5vw, 1rem);
+            margin: clamp(1rem, 2vw, 2rem) 0;
+        }
+
+        .flow-box {
+            background: var(--terminal-dim);
+            border-left: 3px solid var(--terminal-green);
+            padding: clamp(0.75rem, 1.5vw, 1rem);
+            font-size: clamp(0.85rem, 1.3vw, 1rem);
+        }
+
+        .flow-box.stop {
+            border-left-color: #ff4444;
+        }
+
+        .flow-box.allow {
+            border-left-color: var(--terminal-green);
+        }
+
+        ul {
+            list-style: none;
+            margin: clamp(1rem, 2vw, 1.5rem) 0;
+        }
+
+        li {
+            padding-left: 1.5rem;
+            margin-bottom: clamp(0.5rem, 1vw, 0.75rem);
+            position: relative;
+        }
+
+        li::before {
+            content: '>';
+            color: var(--terminal-green);
+            position: absolute;
+            left: 0;
+            font-weight: 700;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: clamp(1rem, 2vw, 1.5rem);
+            margin: clamp(1rem, 2vw, 2rem) 0;
+        }
+
+        .card {
+            background: var(--terminal-dim);
+            border: 1px solid var(--terminal-green);
+            border-radius: 8px;
+            padding: clamp(1rem, 2vw, 1.5rem);
+        }
+
+        .card h3 {
+            font-size: clamp(1rem, 1.8vw, 1.3rem);
+            margin-bottom: clamp(0.5rem, 1vw, 0.75rem);
+        }
+
+        .card p {
+            font-size: clamp(0.85rem, 1.2vw, 0.95rem);
+        }
+
+        .highlight {
+            color: var(--terminal-green);
+            font-weight: 700;
+        }
+
+        .slide-number {
+            position: absolute;
+            bottom: clamp(1rem, 2vw, 2rem);
+            right: clamp(1rem, 2vw, 2rem);
+            font-size: clamp(0.7rem, 1vw, 0.85rem);
+            color: var(--terminal-green);
+            opacity: 0.5;
+        }
+
+        @media (max-height: 700px) {
+            h1 { font-size: clamp(1.5rem, 4vw, 2.5rem); }
+            h2 { font-size: clamp(1.2rem, 2.5vw, 1.8rem); }
+            .terminal-box { padding: 1rem; }
+            .slide { padding: 2rem; }
+        }
+
+        @media (max-height: 500px) {
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.5rem; }
+            .slide { padding: 1.5rem; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .slide-content {
+                animation: none;
+                opacity: 1;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <!-- Slide 1: Title -->
+        <div class="slide">
+            <div class="slide-content">
+                <h1>Execution Boundary</h1>
+                <p class="tagline">Pre-execution judgment gate for AI systems</p>
+                <div class="terminal-box">
+                    <div class="terminal-header">$ concept</div>
+                    <pre>AI proposes → Gate decides → execution proceeds only if allowed
+All decisions logged in append-only trail</pre>
+                </div>
+                <p style="margin-top: 2rem; opacity: 0.7;">Deterministic STOP / HOLD / ALLOW before runtime</p>
+            </div>
+            <div class="slide-number">01</div>
+        </div>
+
+        <!-- Slide 2: The Problem -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>The Problem</h2>
+                <div class="decision-flow">
+                    <div class="flow-box">
+                        <strong>Current State:</strong> AI systems execute first, ask questions later
+                    </div>
+                    <div class="flow-box stop">
+                        <strong>Risk:</strong> Hallucinations, unauthorized actions, no audit trail
+                    </div>
+                    <div class="flow-box">
+                        <strong>Gap:</strong> No judgment layer between AI output and execution
+                    </div>
+                </div>
+                <p style="margin-top: 2rem;">Execution happens <span class="highlight">before</span> validation, not after.</p>
+            </div>
+            <div class="slide-number">02</div>
+        </div>
+
+        <!-- Slide 3: Judgment Flow -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>How It Works</h2>
+                <div class="terminal-box">
+                    <pre>    AI Output
+        │
+        ▼
+┌───────────────────┐
+│  Judgment Gate    │
+│ STOP / HOLD / ... │──▶ decision_log.jsonl (append-only)
+│      ALLOW        │
+└─────────┬─────────┘
+          │
+          ▼
+        ALLOW?
+          │
+    ┌─────┴─────┐
+   NO          YES
+    │            │
+    ▼            ▼
+ blocked     execution
+ & logged    proceeds</pre>
+                </div>
+            </div>
+            <div class="slide-number">03</div>
+        </div>
+
+        <!-- Slide 4: Architecture -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Three-Layer Architecture</h2>
+                <div class="grid-3">
+                    <div class="card">
+                        <h3>Log Schema</h3>
+                        <p>ai-judgment-trail-spec</p>
+                        <p style="margin-top: 0.5rem; opacity: 0.8;">9-field decision log format, OTel-aligned</p>
+                    </div>
+                    <div class="card">
+                        <h3>Governance Standard</h3>
+                        <p>ai-execution-boundary-spec</p>
+                        <p style="margin-top: 0.5rem; opacity: 0.8;">Role separation, conformance levels (AEBS)</p>
+                    </div>
+                    <div class="card">
+                        <h3>Runtime Lab</h3>
+                        <p>execution-runtime-lab</p>
+                        <p style="margin-top: 0.5rem; opacity: 0.8;">Experimental execution gates</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">04</div>
+        </div>
+
+        <!-- Slide 5: Demo Output -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Live Demo Output</h2>
+                <div class="terminal-box">
+                    <div class="terminal-header">$ python3 examples/run_ajt_demo.py</div>
+                    <pre>Decision: STOP
+Reason: missing_citation
+Risk Level: high
+Rule: R1_REQUIRE_EVIDENCE
+→ AI output blocked. No hallucination generated.</pre>
+                </div>
+                <div class="terminal-box" style="margin-top: 1.5rem;">
+                    <div class="terminal-header">$ npm run verify</div>
+                    <pre>8/8 adversarial attempts blocked
+All decisions logged to decision_log.jsonl</pre>
+                </div>
+            </div>
+            <div class="slide-number">05</div>
+        </div>
+
+        <!-- Slide 6: Key Benefits -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Why This Matters</h2>
+                <ul>
+                    <li><strong>Deterministic:</strong> Same input = same judgment, every time</li>
+                    <li><strong>Auditable:</strong> Append-only decision log with full provenance</li>
+                    <li><strong>Pre-execution:</strong> STOP before damage, not cleanup after</li>
+                    <li><strong>Observable:</strong> OpenTelemetry-aligned semantics</li>
+                    <li><strong>Zero-dependency:</strong> No vendor lock-in</li>
+                </ul>
+            </div>
+            <div class="slide-number">06</div>
+        </div>
+
+        <!-- Slide 7: Try It Now -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Get Started (2 minutes)</h2>
+                <div class="terminal-box">
+                    <div class="terminal-header">$ git clone https://github.com/Nick-heo-eg/ai-judgment-trail-spec</div>
+                    <pre>cd ai-judgment-trail-spec
+python3 examples/run_ajt_demo.py</pre>
+                </div>
+                <div class="terminal-box" style="margin-top: 1.5rem;">
+                    <div class="terminal-header">$ git clone https://github.com/Nick-heo-eg/execution-runtime-lab</div>
+                    <pre>cd execution-runtime-lab
+npm install && npm run verify</pre>
+                </div>
+                <p style="margin-top: 2rem;"><strong>Index:</strong> github.com/Nick-heo-eg/execution-boundary</p>
+            </div>
+            <div class="slide-number">07</div>
+        </div>
+
+        <!-- Slide 8: Final -->
+        <div class="slide">
+            <div class="slide-content">
+                <h1 style="text-align: center;">Execution Boundary</h1>
+                <p class="tagline" style="text-align: center;">STOP first. Execute only if allowed.</p>
+                <div style="text-align: center; margin-top: 3rem;">
+                    <p><span class="highlight">github.com/Nick-heo-eg/execution-boundary</span></p>
+                    <p style="margin-top: 1rem; opacity: 0.7;">Apache 2.0 License</p>
+                </div>
+            </div>
+            <div class="slide-number">08</div>
+        </div>
+    </div>
+
+    <script>
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const slides = document.querySelectorAll('.slide');
+            const container = document.querySelector('.slide-container');
+            const currentScroll = container.scrollTop;
+            const slideHeight = slides[0].offsetHeight;
+            const currentSlide = Math.round(currentScroll / slideHeight);
+
+            if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
+                e.preventDefault();
+                if (currentSlide < slides.length - 1) {
+                    slides[currentSlide + 1].scrollIntoView({ behavior: 'smooth' });
+                }
+            } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+                e.preventDefault();
+                if (currentSlide > 0) {
+                    slides[currentSlide - 1].scrollIntoView({ behavior: 'smooth' });
+                }
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                slides[0].scrollIntoView({ behavior: 'smooth' });
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                slides[slides.length - 1].scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+
+        // Mouse wheel navigation
+        const container = document.querySelector('.slide-container');
+        let isScrolling = false;
+
+        container.addEventListener('wheel', (e) => {
+            if (isScrolling) return;
+
+            isScrolling = true;
+            setTimeout(() => { isScrolling = false; }, 1000);
+        });
+
+        // Touch swipe support
+        let touchStartY = 0;
+        container.addEventListener('touchstart', (e) => {
+            touchStartY = e.touches[0].clientY;
+        });
+
+        container.addEventListener('touchend', (e) => {
+            const touchEndY = e.changedTouches[0].clientY;
+            const diff = touchStartY - touchEndY;
+
+            if (Math.abs(diff) > 50) {
+                const slides = document.querySelectorAll('.slide');
+                const currentScroll = container.scrollTop;
+                const slideHeight = slides[0].offsetHeight;
+                const currentSlide = Math.round(currentScroll / slideHeight);
+
+                if (diff > 0 && currentSlide < slides.length - 1) {
+                    slides[currentSlide + 1].scrollIntoView({ behavior: 'smooth' });
+                } else if (diff < 0 && currentSlide > 0) {
+                    slides[currentSlide - 1].scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        });
+    </script>
+</body>
+</html>

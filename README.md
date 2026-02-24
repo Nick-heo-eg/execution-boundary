@@ -6,6 +6,8 @@ Deterministic STOP / HOLD / ALLOW before runtime.
 AI proposes → Gate decides → execution proceeds only if allowed.
 All decisions are logged in an append-only trail.
 
+**[→ 5-minute pitch deck](docs/presentations/pitch-v1.0.html)** (interactive slides)
+
 <!-- TODO: Replace with actual terminal recording (asciinema or GIF) -->
 <!-- 2-second demo: clone → run → STOP appears -->
 
