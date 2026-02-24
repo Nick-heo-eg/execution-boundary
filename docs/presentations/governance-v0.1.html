@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Execution Governance - Structure Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0e1116;
+            --text: #e6edf3;
+            --stop: #ff4d4d;
+            --hold: #ffcc00;
+            --allow: #00cc66;
+            --accent: #00ff41;
+            --dim: #1a2332;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow: hidden;
+        }
+
+        .slides {
+            height: 100vh;
+            height: 100dvh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+
+        .slide {
+            height: 100vh;
+            height: 100dvh;
+            scroll-snap-align: start;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: clamp(2rem, 5vw, 4rem);
+            position: relative;
+            border-bottom: 2px solid var(--dim);
+        }
+
+        .slide-content {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 6vw, 4rem);
+            font-weight: 700;
+            margin-bottom: clamp(1rem, 2vw, 2rem);
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: clamp(1.5rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: clamp(1rem, 2vw, 1.5rem);
+            line-height: 1.3;
+        }
+
+        p, li {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .flow-box {
+            background: var(--dim);
+            border-left: 4px solid var(--accent);
+            padding: clamp(1rem, 2vw, 1.5rem);
+            margin: clamp(1rem, 2vw, 1.5rem) 0;
+            font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+        }
+
+        .state-grid {
+            display: grid;
+            gap: clamp(1rem, 2vw, 2rem);
+            margin: clamp(1.5rem, 3vw, 2rem) 0;
+        }
+
+        .state-card {
+            border: 3px solid;
+            padding: clamp(1.5rem, 3vw, 2rem);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .state-card.stop { border-color: var(--stop); }
+        .state-card.hold { border-color: var(--hold); }
+        .state-card.allow { border-color: var(--allow); }
+
+        .state-card h3 {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            margin-bottom: 0.5rem;
+        }
+
+        .state-card.stop h3 { color: var(--stop); }
+        .state-card.hold h3 { color: var(--hold); }
+        .state-card.allow h3 { color: var(--allow); }
+
+        .flow-diagram {
+            font-family: 'Courier New', monospace;
+            font-size: clamp(0.8rem, 1.5vw, 1rem);
+            line-height: 1.5;
+            background: var(--dim);
+            padding: clamp(1rem, 2vw, 2rem);
+            border-radius: 8px;
+            overflow-x: auto;
+            white-space: pre;
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .slide-number {
+            position: absolute;
+            bottom: clamp(1rem, 2vw, 2rem);
+            right: clamp(1rem, 2vw, 2rem);
+            font-size: clamp(0.8rem, 1.2vw, 1rem);
+            opacity: 0.5;
+        }
+
+        .progress-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            height: 4px;
+            background: var(--accent);
+            width: 0%;
+            transition: width 0.3s ease;
+            z-index: 100;
+        }
+
+        @media (max-height: 600px) {
+            h1 { font-size: clamp(1.5rem, 5vw, 2.5rem); }
+            h2 { font-size: clamp(1.2rem, 3vw, 2rem); }
+            .slide { padding: 1.5rem; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .slides { scroll-behavior: auto; }
+        }
+    </style>
+</head>
+<body>
+    <div class="slides" id="slides">
+        <!-- Slide 1: Problem -->
+        <section class="slide">
+            <div class="slide-content">
+                <h1>The Problem</h1>
+                <div class="flow-box">
+                    <p><strong>AI agents execute by default.</strong></p>
+                </div>
+                <p>No judgment layer between output and action.</p>
+                <p>Hallucinations, unauthorized operations, and unaudited decisions become <span class="highlight">production behavior</span>.</p>
+            </div>
+            <div class="slide-number">1/6</div>
+        </section>
+
+        <!-- Slide 2: Default Behavior -->
+        <section class="slide">
+            <div class="slide-content">
+                <h2>Default Agent Behavior</h2>
+                <div class="flow-diagram">AI Reasoning
+    │
+    ▼
+ Output
+    │
+    ▼
+Execution
+    │
+    ▼
+ (Already happened)</div>
+                <p style="margin-top: 2rem;">No gate. No decision point. No audit trail.</p>
+                <p><span class="highlight">Execution precedes validation.</span></p>
+            </div>
+            <div class="slide-number">2/6</div>
+        </section>
+
+        <!-- Slide 3: Deterministic Gate -->
+        <section class="slide">
+            <div class="slide-content">
+                <h2>Introduce Deterministic Gate</h2>
+                <div class="flow-diagram">AI Output
+    │
+    ▼
+┌─────────────┐
+│ Judgment    │ ← Deterministic
+│ Gate        │   Same input = same decision
+└──────┬──────┘
+       │
+       ▼
+   Decision
+       │
+   ┌───┴───┐
+ BLOCK   ALLOW
+   │       │
+   ▼       ▼
+ Logged  Execution</div>
+                <p style="margin-top: 2rem;"><span class="highlight">Decision happens BEFORE execution.</span></p>
+            </div>
+            <div class="slide-number">3/6</div>
+        </section>
+
+        <!-- Slide 4: States -->
+        <section class="slide">
+            <div class="slide-content">
+                <h2>Three States</h2>
+                <div class="state-grid">
+                    <div class="state-card stop">
+                        <h3>STOP</h3>
+                        <p>Blocked. Never executed. Logged.</p>
+                    </div>
+                    <div class="state-card hold">
+                        <h3>HOLD</h3>
+                        <p>Deferred. Requires authority approval.</p>
+                    </div>
+                    <div class="state-card allow">
+                        <h3>ALLOW</h3>
+                        <p>Permitted. Execution proceeds. Logged.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-number">4/6</div>
+        </section>
+
+        <!-- Slide 5: Ledger -->
+        <section class="slide">
+            <div class="slide-content">
+                <h2>Append-only Decision Ledger</h2>
+                <div class="flow-box">
+                    <p>Every decision logged. No deletion. Full provenance.</p>
+                </div>
+                <div class="flow-diagram">decision_log.jsonl
+
+{"decision":"STOP","reason":"missing_evidence",...}
+{"decision":"ALLOW","reason":"verified_source",...}
+{"decision":"HOLD","reason":"requires_approval",...}</div>
+                <p style="margin-top: 2rem;"><span class="highlight">Observable. Auditable. Immutable.</span></p>
+            </div>
+            <div class="slide-number">5/6</div>
+        </section>
+
+        <!-- Slide 6: Closing -->
+        <section class="slide">
+            <div class="slide-content">
+                <h1 style="text-align: center;">Execution Governance</h1>
+                <p style="text-align: center; font-size: clamp(1.2rem, 2.5vw, 1.8rem); margin-top: 2rem;">
+                    Performance accelerates.
+                    <br>
+                    <span class="highlight">Responsibility persists.</span>
+                </p>
+                <p style="text-align: center; margin-top: 3rem; opacity: 0.7;">
+                    github.com/Nick-heo-eg/execution-boundary
+                </p>
+            </div>
+            <div class="slide-number">6/6</div>
+        </section>
+    </div>
+
+    <div class="progress-bar" id="progress"></div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const slidesContainer = document.getElementById('slides');
+        const progress = document.getElementById('progress');
+        let currentSlide = 0;
+
+        function updateProgress() {
+            const scrollTop = slidesContainer.scrollTop;
+            const scrollHeight = slidesContainer.scrollHeight - slidesContainer.clientHeight;
+            const scrollPercent = (scrollTop / scrollHeight) * 100;
+            progress.style.width = scrollPercent + '%';
+        }
+
+        function goToSlide(index) {
+            if (index >= 0 && index < slides.length) {
+                currentSlide = index;
+                slides[index].scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function getCurrentSlide() {
+            const scrollTop = slidesContainer.scrollTop;
+            const slideHeight = slides[0].offsetHeight;
+            return Math.round(scrollTop / slideHeight);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const current = getCurrentSlide();
+
+            if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+                e.preventDefault();
+                goToSlide(current + 1);
+            } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                goToSlide(current - 1);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                goToSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                goToSlide(slides.length - 1);
+            }
+        });
+
+        // Touch navigation
+        let touchStartY = 0;
+        slidesContainer.addEventListener('touchstart', (e) => {
+            touchStartY = e.touches[0].clientY;
+        });
+
+        slidesContainer.addEventListener('touchend', (e) => {
+            const touchEndY = e.changedTouches[0].clientY;
+            const diff = touchStartY - touchEndY;
+            const current = getCurrentSlide();
+
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) {
+                    goToSlide(current + 1);
+                } else {
+                    goToSlide(current - 1);
+                }
+            }
+        });
+
+        // Scroll tracking
+        slidesContainer.addEventListener('scroll', updateProgress);
+
+        // Mouse wheel (debounced)
+        let wheelTimeout;
+        slidesContainer.addEventListener('wheel', (e) => {
+            clearTimeout(wheelTimeout);
+            wheelTimeout = setTimeout(() => {
+                updateProgress();
+            }, 100);
+        });
+
+        // Initial progress
+        updateProgress();
+    </script>
+</body>
+</html>
