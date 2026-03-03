@@ -1,95 +1,82 @@
 # Execution Boundary
 
-Pre-execution judgment gate for AI systems.
-Deterministic STOP / HOLD / ALLOW before runtime.
+Pre-execution authorization boundary for systems where actions have real-world consequences.
 
-AI proposes → Gate decides → execution proceeds only if allowed.
-All decisions are logged in an append-only trail.
+Deterministic evaluation. Pre-execution decision. Tamper-evident record.
 
-**[→ 5-minute pitch deck](docs/presentations/pitch-v1.0.html)** (interactive slides)
+---
 
-<!-- TODO: Replace with actual terminal recording (asciinema or GIF) -->
-<!-- 2-second demo: clone → run → STOP appears -->
+## Canonical Structure
 
 ```
-    AI Output
-        │
-        ▼
-┌───────────────────┐
-│  Judgment Gate    │
-│ STOP / HOLD / ... │──▶ decision_log.jsonl (append-only)
-│      ALLOW        │
-└─────────┬─────────┘
-          │
-          ▼
-        ALLOW?
-          │
-    ┌─────┴─────┐
-   NO          YES
-    │            │
-    ▼            ▼
- blocked     execution
- & logged    proceeds
+Layer 0  execution-boundary              ← this repo (architectural map)
+Layer 1  execution-boundary-core-spec    ← structural contract
+Layer 2  execution-gate                  ← reference implementation
+Layer 2  agent-execution-guard           ← AI agent engine (ED25519, severity, HOLD)
+Layer 3  execution-boundary-transport-profile  ← transport profile (ISO 8583, HTTP)
+Layer 3  ai-execution-boundary-spec      ← AI application profile
 ```
+
+One core. Multiple profiles. Same boundary pattern.
 
 ---
 
 ## Repositories
 
-| Layer               | Repo                         | What it does                               | Try it                             |
-| ------------------- | ---------------------------- | ------------------------------------------ | ---------------------------------- |
-| Log Schema          | [ai-judgment-trail-spec](https://github.com/Nick-heo-eg/ai-judgment-trail-spec)       | 9-field decision log format, OTel-aligned  | `python3 examples/run_ajt_demo.py` |
-| Governance Standard | [ai-execution-boundary-spec](https://github.com/Nick-heo-eg/ai-execution-boundary-spec)   | Role separation, conformance levels (AEBS) | Read `AEBS_SPEC.md`                |
-| Runtime Lab         | [execution-runtime-lab](https://github.com/Nick-heo-eg/execution-runtime-lab)        | Experimental execution gates               | `npm install && npm run verify`    |
+| Layer | Repo | What it defines |
+|---|---|---|
+| Contract | [execution-boundary-core-spec](https://github.com/Nick-heo-eg/execution-boundary-core-spec) | Envelope, Decision, Ledger, Evaluator — the structural definition |
+| Implementation | [execution-gate](https://github.com/Nick-heo-eg/execution-gate) | Deterministic gate, fail-closed, YAML policy, Core Spec aligned |
+| AI agent engine | [agent-execution-guard](https://github.com/Nick-heo-eg/agent-execution-guard) | ED25519 proof, 3-state severity gate, HOLD, LangChain adapter |
+| Transport profile | [execution-boundary-transport-profile](https://github.com/Nick-heo-eg/execution-boundary-transport-profile) | ISO 8583, HTTP demos, Merkle ledger, canonical export |
+| AI profile | [ai-execution-boundary-spec](https://github.com/Nick-heo-eg/ai-execution-boundary-spec) | AI application profile over Core Spec |
 
 ---
 
-## Quickstart (2 minutes)
+## Core Pattern
 
-**See a judgment trail:**
+```
+Envelope → evaluate() → Decision → Ledger → [ execute only if ALLOW ]
+```
+
+`evaluate()` is a pure function. No I/O. No randomness. No side effects.
+The decision is recorded before execution — not after.
+
+---
+
+## Quickstart
+
+**Transport gate demo (stdlib only, no setup):**
 ```bash
-git clone https://github.com/Nick-heo-eg/ai-judgment-trail-spec
-cd ai-judgment-trail-spec
-python3 examples/run_ajt_demo.py
+git clone https://github.com/Nick-heo-eg/execution-boundary-transport-profile
+cd execution-boundary-transport-profile
+python3 examples/iso8583/demo.py
+python3 examples/http/demo.py
+python3 -m pytest tests/ -v   # 28 tests
 ```
 
-Output:
-```
-Decision: STOP
-Reason: missing_citation
-Risk Level: high
-Rule: R1_REQUIRE_EVIDENCE
-→ AI output blocked. No hallucination generated.
-```
-
-**See execution gating:**
+**AI agent guard:**
 ```bash
-git clone https://github.com/Nick-heo-eg/execution-runtime-lab
-cd execution-runtime-lab
-npm install && npm run verify
+pip install agent-execution-guard
 ```
+```python
+from agent_execution_guard import ExecutionGuard, Intent, ALLOW_ALL
 
-Output: 8/8 adversarial attempts blocked, all decisions logged to `decision_log.jsonl`.
-
----
-
-## How the pieces connect
-
-```
-ai-judgment-trail-spec          ← what gets logged (schema)
-        │                          https://github.com/Nick-heo-eg/ai-judgment-trail-spec
-ai-execution-boundary-spec     ← structural rules (standard)
-        │                          https://github.com/Nick-heo-eg/ai-execution-boundary-spec
-execution-runtime-lab           ← experimental gate
-                                   https://github.com/Nick-heo-eg/execution-runtime-lab
+guard = ExecutionGuard()
+result = guard.evaluate(Intent(actor="agent", action="wire_transfer",
+                               payload="amount=50000"), policy=ALLOW_ALL)
 ```
 
 ---
 
-## Related
+## What This Is Not
 
-AJT decision logs align with [OpenTelemetry](https://github.com/open-telemetry/semantic-conventions) trace semantics.
-Proposals: [Issue #3244](https://github.com/open-telemetry/semantic-conventions/issues/3244) · [PR #3336](https://github.com/open-telemetry/semantic-conventions/pull/3336)
+- Not a firewall
+- Not a heuristic guard
+- Not a probabilistic policy layer
+- Not post-hoc logging
+
+→ **[Architecture definition](https://github.com/Nick-heo-eg/execution-boundary-transport-profile/blob/main/docs/03-architecture.md)**
 
 ---
 
