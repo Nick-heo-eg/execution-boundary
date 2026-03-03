@@ -30,6 +30,7 @@ Layer 4  Domain Profiles
 | 3 | [agent-execution-guard](https://github.com/Nick-heo-eg/agent-execution-guard) | AI agent engine. ED25519 proof. Severity gate. pip package. | Semver strict |
 | 4 | [execution-boundary-transport-profile](https://github.com/Nick-heo-eg/execution-boundary-transport-profile) | Transport profile: ISO 8583, HTTP. Merkle ledger. | Compatibility check |
 | 4 | [ai-execution-boundary-spec](https://github.com/Nick-heo-eg/ai-execution-boundary-spec) | AI application profile over Core Spec | Compatibility check |
+| 4 | [execution-observability-profile](https://github.com/Nick-heo-eg/execution-observability-profile) | OTel observability profile. eb.* semantic conventions. Collector topology. Grafana dashboards. | Compatibility check |
 
 ### Adjacent
 
@@ -75,6 +76,7 @@ Three repositories receive active commits:
 execution-gate                        Layer 2 — reference impl
 agent-execution-guard                 Layer 3 — pip package
 execution-boundary-transport-profile  Layer 4 — transport profile
+execution-observability-profile       Layer 4 — OTel observability profile
 ```
 
 All other repositories are **reference only** — no active development unless a specific gap is identified.
@@ -87,3 +89,4 @@ New private repositories: allowed for experiments.
 Promotion to public: requires all five checklist items above.
 Cleanup cadence: quarterly.
 Archive criteria: 90 days no push + no downstream dependency.
+
