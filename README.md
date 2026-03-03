@@ -17,6 +17,7 @@ Layer 2  execution-gate                  ← reference implementation
 Layer 3  agent-execution-guard           ← AI agent engine (ED25519, severity, HOLD)
 Layer 4  execution-boundary-transport-profile  ← transport profile (ISO 8583, HTTP)
 Layer 4  ai-execution-boundary-spec      ← AI application profile
+Layer 4  execution-observability-profile ← observability profile (OTel, eb.* conventions)
 ```
 
 One core. Multiple profiles. Same boundary pattern.
@@ -32,6 +33,7 @@ One core. Multiple profiles. Same boundary pattern.
 | AI agent engine | [agent-execution-guard](https://github.com/Nick-heo-eg/agent-execution-guard) | ED25519 proof, 3-state severity gate, HOLD, LangChain adapter |
 | Transport profile | [execution-boundary-transport-profile](https://github.com/Nick-heo-eg/execution-boundary-transport-profile) | ISO 8583, HTTP demos, Merkle ledger, canonical export |
 | AI profile | [ai-execution-boundary-spec](https://github.com/Nick-heo-eg/ai-execution-boundary-spec) | AI application profile over Core Spec |
+| Observability profile | [execution-observability-profile](https://github.com/Nick-heo-eg/execution-observability-profile) | OTel semantic conventions (eb.*), collector topology, Grafana dashboards, tail sampling policy |
 
 ---
 
@@ -71,6 +73,19 @@ try:
                                    payload="amount=50000"), policy=ALLOW_ALL)
 except Exception as e:
     print(e)  # DENY — signed proof issued, execution did not occur
+```
+
+**Gate with OTel observability:**
+```bash
+pip install execution-gate[otel]
+```
+```python
+from gate import Gate, ActionEnvelope
+
+gate = Gate(policy_path="policy.yaml")
+decision = gate.evaluate(ActionEnvelope.build("transfer_money", "bank", {"amount": 50000}))
+# eb.evaluate span emitted → Agent → Gateway (tail sampling) → backend
+# DENY spans retained 100% (keep-deny policy)
 ```
 
 ---
