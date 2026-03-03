@@ -4,6 +4,8 @@ Pre-execution authorization boundary for systems where actions have real-world c
 
 Deterministic evaluation. Pre-execution decision. Tamper-evident record.
 
+→ **[LAYER_REGISTRY.md](LAYER_REGISTRY.md)** — canonical layer definitions. New repository assignments go here first.
+
 ---
 
 ## Canonical Structure
@@ -12,9 +14,9 @@ Deterministic evaluation. Pre-execution decision. Tamper-evident record.
 Layer 0  execution-boundary              ← this repo (architectural map)
 Layer 1  execution-boundary-core-spec    ← structural contract
 Layer 2  execution-gate                  ← reference implementation
-Layer 2  agent-execution-guard           ← AI agent engine (ED25519, severity, HOLD)
-Layer 3  execution-boundary-transport-profile  ← transport profile (ISO 8583, HTTP)
-Layer 3  ai-execution-boundary-spec      ← AI application profile
+Layer 3  agent-execution-guard           ← AI agent engine (ED25519, severity, HOLD)
+Layer 4  execution-boundary-transport-profile  ← transport profile (ISO 8583, HTTP)
+Layer 4  ai-execution-boundary-spec      ← AI application profile
 ```
 
 One core. Multiple profiles. Same boundary pattern.
@@ -41,6 +43,7 @@ Envelope → evaluate() → Decision → Ledger → [ execute only if ALLOW ]
 
 `evaluate()` is a pure function. No I/O. No randomness. No side effects.
 The decision is recorded before execution — not after.
+DENY is recorded. Absence of execution is provable.
 
 ---
 
@@ -63,8 +66,11 @@ pip install agent-execution-guard
 from agent_execution_guard import ExecutionGuard, Intent, ALLOW_ALL
 
 guard = ExecutionGuard()
-result = guard.evaluate(Intent(actor="agent", action="wire_transfer",
-                               payload="amount=50000"), policy=ALLOW_ALL)
+try:
+    result = guard.evaluate(Intent(actor="agent", action="wire_transfer",
+                                   payload="amount=50000"), policy=ALLOW_ALL)
+except Exception as e:
+    print(e)  # DENY — signed proof issued, execution did not occur
 ```
 
 ---
